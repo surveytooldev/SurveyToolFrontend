@@ -1,0 +1,55 @@
+{
+    "actionItems": [
+        {
+            "id": 1,
+            "owner": {
+                "username": "test_lob",
+                "email": "",
+                "is_active": true
+            },
+            "topic": {
+                "name": "Test_Topic",
+                "description": null
+            },
+            "service": {
+                "name": "Test_Service",
+                "description": null
+            },
+            "lob": {
+                "name": "SAP Cloud Platform",
+                "description": "The LoB item for SAP Cloud Platform"
+            },
+            "feedback_item": {
+                "id": 1,
+                "owner": {
+                    "username": "admin",
+                    "email": "adminadmin.cc",
+                    "is_active": true
+                },
+                "topic": {
+                    "name": "Test_Topic",
+                    "description": null
+                },
+                "service": {
+                    "name": "Test_Service",
+                    "description": null
+                },
+                "lob": {
+                    "name": "SAP Cloud Platform",
+                    "description": "The LoB item for SAP Cloud Platform"
+                },
+                "name": "Test_Feedback_Item",
+                "description": "Description of Test Feedback"
+            },
+            "topic_text": "Admin, Staff and LoB Visible",
+            "description": "Admin, Staff and LoB Users need to see this",
+            "action_plan_needed": false,
+            "handled_by_current_initiative": false,
+            "nps_survey_rating": null,
+            "comment_initiative": null,
+            "comment": "This is the comment for the first action item",
+            "date_created": "2019-07-15",
+            "is_archived": false
+        }
+    ]
+}
