@@ -16,10 +16,10 @@ sap.ui.define([
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// set products demo model on this sample
-			oProductsModel = new JSONModel("../mock.json");
+		/* 	oProductsModel = new JSONModel("../mock.json");
 			oProductsModel.setSizeLimit(1000);
 			print(oProductsModel);
-			this.setModel(oProductsModel, 'feedbackListItems');
+			this.setModel(oProductsModel, 'feedbackListItems'); */
 		}
 	});
 });

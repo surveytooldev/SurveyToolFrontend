@@ -14,6 +14,10 @@ sap.ui.define([
 			this.oView = this.getView();
 			this._bDescendingSort = false;
 			this.oProductsTable = this.oView.byId("productsTable");
+			//Mockdata-Model Instanziieren, Daten hochladen, Model anbinden
+            var oModel= new JSONModel();
+            oModel.loadData("mock.json");
+            this.getView().byId("list").setModel(oModel);
 		},
 
 		onSearch: function (oEvent) {
