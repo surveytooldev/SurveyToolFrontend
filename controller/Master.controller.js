@@ -20,6 +20,16 @@ sap.ui.define([
             this.getView().byId("list").setModel(oModel);
 		},
 
+		onRowPress: function (oEvent) {
+			var i = oEvent.getSource().getBindingContext().sPath.split("/")[2];
+			var oModel = this.getView().byId("list").getModel();
+			console.log(oModel.oData.actionItems)
+			var oFCL = this.oView.getParent().getParent();
+			oFCL.setLayout(fioriLibrary.LayoutType.TwoColumnsMidExpanded);
+			
+
+		},
+
 		onSearch: function (oEvent) {
 			var oTableSearchState = [],
 				sQuery = oEvent.getParameter("query");

@@ -23,7 +23,13 @@
 					<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
 				</OverflowToolbar>
 				<List id="list" items="{/actionitems}">
-									<StandardListItem title="{description}" />
+				<items>
+									<ObjectListItem type="Navigation" title="{description}" press=".onRowPress" >
+									<attributes>
+									<ObjectAttribute text="{aID}" />
+									</attributes>
+									</ObjectListItem>
+									</items>
 								</List>
 			</VBox>
 		</f:content>
