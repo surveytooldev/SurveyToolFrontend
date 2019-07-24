@@ -15,19 +15,18 @@ sap.ui.define([
 			this._bDescendingSort = false;
 			this.oProductsTable = this.oView.byId("productsTable");
 			//Mockdata-Model Instanziieren, Daten hochladen, Model anbinden
-            var oModel= new JSONModel();
-            oModel.loadData("mock.json");
-            this.getView().byId("list").setModel(oModel);
+			var oModel = new JSONModel();
+			oModel.loadData("mock.json");
+			this.getView().byId("list").setModel(oModel);
 		},
 
 		onRowPress: function (oEvent) {
-			var i = oEvent.getSource().getBindingContext().sPath.split("/")[2];
-			var oModel = this.getView().byId("list").getModel();
-			console.log(oModel.oData.actionItems)
+			var data = {};
+			data.context = oEvent.getSource().getBindingContext();
+			var selectedIndex = data.context.sPath.split("/")[2];
+			console.log(data.context.oModel.oData.actionitems[selectedIndex]);
 			var oFCL = this.oView.getParent().getParent();
 			oFCL.setLayout(fioriLibrary.LayoutType.TwoColumnsMidExpanded);
-			
-
 		},
 
 		onSearch: function (oEvent) {
@@ -42,7 +41,7 @@ sap.ui.define([
 		},
 
 		onAdd: function () {
-			MessageBox.information("This functionality is not ready yet.", {title: "Aw, Snap!"});
+			MessageBox.information("This functionality is not ready yet.", { title: "Aw, Snap!" });
 		},
 
 		onSort: function () {
