@@ -11,14 +11,12 @@ sap.ui.define([
 
 	return Controller.extend("sap.ui.demo.fiori2.controller.Master", {
 		onInit: function () {
+			this.oRouter = this.getOwnerComponent().getRouter();
 			this.oView = this.getView();
 			this._bDescendingSort = false;
-			this.oProductsTable = this.oView.byId("productsTable");
-			//Mockdata-Model Instanziieren, Daten hochladen, Model anbinden
 			var oModel = new JSONModel();
 			oModel.loadData("mock.json");
 			this.getView().byId("list").setModel(oModel);
-			this.oRouter = this.getOwnerComponent().getRouter();
 		},
 
 		onRowPress: function (oEvent) {
@@ -46,9 +44,7 @@ sap.ui.define([
 		},
 
 		onListItemPress: function () {
-			var oFCL = this.oView.getParent().getParent();
 
-			oFCL.setLayout(fioriLibrary.LayoutType.TwoColumnsMidExpanded);
 		}
 	});
 });

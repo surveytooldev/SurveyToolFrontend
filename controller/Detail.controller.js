@@ -9,7 +9,6 @@ sap.ui.define([
         },
         _onObjectMatched: function (oEvent) {
             console.log(oEvent.getParameter("arguments").actionitem);
-            console.log(this.getView());
 		}
     });
 }
