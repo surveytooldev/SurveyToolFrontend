@@ -13,7 +13,6 @@ sap.ui.define([
 
 		init: function () {
 			var oModel,
-				oProductsModel,
 				oRouter;
 
 			UIComponent.prototype.init.apply(this, arguments);
@@ -21,10 +20,8 @@ sap.ui.define([
 			oModel = new JSONModel();
 			this.setModel(oModel);
 
-			// set products demo model on this sample
-			oProductsModel = new JSONModel(sap.ui.require.toUrl('sap/ui/demo/mock') + '/products.json');
-			oProductsModel.setSizeLimit(1000);
-			this.setModel(oProductsModel, 'products');
+
+			//Router initialisieren
 
 			oRouter = this.getRouter();
 			oRouter.attachBeforeRouteMatched(this._onBeforeRouteMatched, this);
@@ -34,7 +31,6 @@ sap.ui.define([
 		_onBeforeRouteMatched: function(oEvent) {
 			var oModel = this.getModel(),
 				sLayout = oEvent.getParameters().arguments.layout;
-
 			// If there is no layout parameter, set a default layout (normally OneColumn)
 			if (!sLayout) {
 				sLayout = fioriLibrary.LayoutType.OneColumn;

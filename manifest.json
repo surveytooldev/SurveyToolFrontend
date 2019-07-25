@@ -28,7 +28,7 @@
 		},
 		"routing": {
 			"config": {
-				"routerClass": "sap.f.routing.Router",
+				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
 				"viewPath": "sap.ui.demo.fiori2.view",
 				"controlId": "flexibleColumnLayout",
@@ -47,7 +47,7 @@
 					]
 				},
 				{
-					"pattern": "detail/{product}/{layout}",
+					"pattern": "detail/{actionitem}/{layout}",
 					"name": "detail",
 					"target": [
 						"master",
