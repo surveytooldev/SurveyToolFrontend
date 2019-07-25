@@ -14,29 +14,35 @@ sap.ui.define([
 			this.oView = this.getView();
 			this._bDescendingSort = false;
 			this.oProductsTable = this.oView.byId("productsTable");
+			//Mockdata-Model Instanziieren, Daten hochladen, Model anbinden
+			var oModel = new JSONModel();
+			oModel.loadData("mock.json");
+			this.getView().byId("list").setModel(oModel);
+			this.oRouter = this.getOwnerComponent().getRouter();
+		},
+
+		onRowPress: function (oEvent) {
+			// gets index that corresponds to position in json array
+			var selectedIndex = oEvent.getSource().getBindingContext().sPath.split("/").slice(-1).pop();
+
+			// gets the id as specified in the json file (e.g. 'aID')
+			var feedbackItemModel=oEvent.getSource().getBindingContext().oModel.oData.actionitems[selectedIndex].aID;
+
+			// Öffnen des Detail Views	
+			var productPath = oEvent.getSource().getBindingContext().getPath();
+			this.oRouter.navTo("detail", {layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, actionitem: feedbackItemModel});
 		},
 
 		onSearch: function (oEvent) {
-			var oTableSearchState = [],
-				sQuery = oEvent.getParameter("query");
-
-			if (sQuery && sQuery.length > 0) {
-				oTableSearchState = [new Filter("Name", FilterOperator.Contains, sQuery)];
-			}
-
-			this.oProductsTable.getBinding("items").filter(oTableSearchState, "Application");
+			
 		},
 
 		onAdd: function () {
-			MessageBox.information("This functionality is not ready yet.", {title: "Aw, Snap!"});
+			MessageBox.information("This functionality is not ready yet.", { title: "Aw, Snap!" });
 		},
 
 		onSort: function () {
-			this._bDescendingSort = !this._bDescendingSort;
-			var oBinding = this.oProductsTable.getBinding("items"),
-				oSorter = new Sorter("Name", this._bDescendingSort);
-
-			oBinding.sort(oSorter);
+			
 		},
 
 		onListItemPress: function () {

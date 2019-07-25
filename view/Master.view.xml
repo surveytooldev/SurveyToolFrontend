@@ -22,42 +22,15 @@
 					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onAdd"/>
 					<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
 				</OverflowToolbar>
-				<Table
-					id="productsTable"
-					inset="false"
-					items="{
-						path: 'feedbackListItems>/actionItems',
-						sorter: {
-							path: 'id'
-						}
-					}"
-					class="sapFDynamicPageAlignContent"
-					width="auto">
-					<columns>
-						<Column width="12em">
-							<Text text="Product"/>
-						</Column>
-						<Column	hAlign="End">
-							<Text text="Price"/>
-						</Column>
-					</columns>
-					<items>
-						<ColumnListItem type="Navigation" press=".onListItemPress">
-							<cells>
-								<ObjectIdentifier title="{feedbackListItems>description}" text="{feedbackListItems>id}"/>
-								<ObjectNumber
-									number="{
-										parts:[
-											{path:'feedbackListItems>description'},
-											{path:'feedbackListItems>id'}
-										],
-										type: 'sap.ui.model.type.string',
-										formatOptions: {showMeasure: false}
-									}"/>
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
+				<List id="list" items="{/actionitems}">
+				<items>
+									<ObjectListItem type="Navigation" title="{description}" press=".onRowPress" >
+									<attributes>
+									<ObjectAttribute text="{aID}" />
+									</attributes>
+									</ObjectListItem>
+									</items>
+								</List>
 			</VBox>
 		</f:content>
 
