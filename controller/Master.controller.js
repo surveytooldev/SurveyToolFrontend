@@ -12,30 +12,7 @@ sap.ui.define([
 
 	return Controller.extend("sap.ui.demo.fiori2.controller.Master", {
 		onInit: function () {
-
-
-			$.ajax({
-                type: 'POST',
-                url: 'https://survey-tool-backend.herokuapp.com/survey/token/',
-                crossDomain: true,
-                data: '{"username": "", "password":""}',
-				dataType: 'json',
-				traditional: true,
-				contentType: 'application/json',
-                success: function(responseData, textStatus, jqXHR) {
-                   console.log(responseData)
-                },
-                error: function (responseData, textStatus, errorThrown) {
-					console.log(responseData);
-					console.log(textStatus);
-					console.log(errorThrown);
-                }
-            });
-            
-
-
-
-			if (sessionStorage.getItem("token") == null) {
+			if (sessionStorage.getItem("accessToken") == null) {
 				var oView = this.getView();
 				if (!this.byId("login")) {
 					Fragment.load({
@@ -85,7 +62,7 @@ sap.ui.define([
 				}
 			);
 			this.getView().setModel(ocreateModel, "createModel");
-			
+
 		},
 
 		onRowPress: function (oEvent) {
@@ -120,8 +97,23 @@ sap.ui.define([
 			return this._loginDialog;
 		},
 
-		onLogin: function()	{
-			alert("login");
+		onLogin: function () {
+			var username = this.getView().byId("username").getValue();
+			var password = this.getView().byId("password").getValue();
+			var success = false;
+				$.post('https://survey-tool-backend.herokuapp.com/survey/token/', { username: username, password: password },
+					function (data) {
+						if(data.access){
+							sessionStorage.setItem("accessToken", data.access);
+							sessionStorage.setItem("refreshToken", data.refresh);
+							success = true;
+						}
+					}).fail(function () {
+						console.log(error);
+					});
+			if (success){
+				_onCloseDialog("login");
+			}
 		},
 
 		_openLoginDialog: function () {
@@ -157,8 +149,12 @@ sap.ui.define([
 
 		},
 
-		onCloseDialog: function () {
+		onCloseDialog: function (id_to_close) {
 			this.byId("actionItemDialog").close();
+		},
+
+		_onCloseDialog: function (id_to_close) {
+			this.byId(id_to_close).close();
 		},
 
 		onSort: function () {
