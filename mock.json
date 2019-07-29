@@ -1,0 +1,26 @@
+{
+    "actionitems": [
+       {
+           "aID":"1",
+           "description":"Feedback No. 1",
+           "icon":"sap-icon://accelerated",
+           "details":[
+               {"lob":"fin"},
+               {"responsible":"Dagmar"}
+           ] 
+
+       },
+       {
+        "aID":"2",
+        "description":"Feedback No. 2",
+        "icon":"sap-icon://accelerated",
+        "details":[
+            {"lob":"hr"},
+            {"responsible":"Enzo"}
+        ] 
+
+    }
+       
+    ]
+    
+}

@@ -1,0 +1,46 @@
+<mvc:View
+	controllerName="sap.ui.demo.fiori2.controller.Master"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Feedback"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<!-- DynamicPage Content -->
+		<f:content>
+			<VBox fitContainer="true">
+				<OverflowToolbar class="sapFDynamicPageAlignContent">
+					<ToolbarSpacer/>
+					<SearchField search=".onSearch" width="17.5rem"/>
+					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialog"/>
+					<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
+				</OverflowToolbar>
+				<List id="list" items="{/actionitems}">
+				<items>
+									<ObjectListItem type="Navigation" title="{description}" press=".onRowPress" >
+									<attributes>
+									<ObjectAttribute text="{aID}" />
+									</attributes>
+									</ObjectListItem>
+									</items>
+								</List>
+			</VBox>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>
