@@ -2,7 +2,7 @@
     "actionitems": [
        {
            "aID":"1",
-           "description":"ActionItemTitle1",
+           "description":"Feedback No. 1",
            "icon":"sap-icon://accelerated",
            "details":[
                {"lob":"fin"},
@@ -12,7 +12,7 @@
        },
        {
         "aID":"2",
-        "description":"ActionItemTitle2",
+        "description":"Feedback No. 2",
         "icon":"sap-icon://accelerated",
         "details":[
             {"lob":"hr"},

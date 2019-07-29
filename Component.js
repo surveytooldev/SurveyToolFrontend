@@ -12,6 +12,7 @@ sap.ui.define([
 		},
 
 		init: function () {
+
 			var oModel,
 				oRouter;
 

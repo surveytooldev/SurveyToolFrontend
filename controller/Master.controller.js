@@ -17,6 +17,33 @@ sap.ui.define([
 			var oModel = new JSONModel();
 			oModel.loadData("mock.json");
 			this.getView().byId("list").setModel(oModel);
+
+			var ocreateModel = new JSONModel();
+            ocreateModel.setData(
+                {
+                    "lobs": [
+                        { "name": "Finance" },
+                        { "name": "Hana" }
+                    ],
+                    "service_area": [
+                        { "name": "GCS Central Infrastructure Operations" },
+                        { "name": "GCS Service Management " }
+                    ],
+
+                    "priority": [
+                        { "name": "1" },
+                        { "name": "2" },
+                        { "name": "3" }
+                    ],
+                    "status": [
+                        { "name": "Accepted" },
+                        { "name": "In Progress" },
+                        { "name": "On Hold" },
+                        { "name": "Finished" }
+                    ]
+                }
+            );
+            this.getView().setModel(ocreateModel, "createModel");
 		},
 
 		onRowPress: function (oEvent) {
@@ -35,9 +62,18 @@ sap.ui.define([
 			
 		},
 
-		onAdd: function () {
-			MessageBox.information("This functionality is not ready yet.", { title: "Aw, Snap!" });
-		},
+		_getDialog : function () {
+			if (!this._oDialog) {
+			   this._oDialog = sap.ui.xmlfragment("sap.ui.demo.fiori2.view.ActionItemDialog");
+			   this.getView().addDependent(this._oDialog);
+			}
+			return this._oDialog;
+		 },
+
+		 onAdd: function () {
+            this._getDialog().open();
+
+        },
 
 		onSort: function () {
 			

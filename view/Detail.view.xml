@@ -23,11 +23,9 @@
 						text="Delete"
 						type="Transparent"/>
 					<m:Button
-						text="Copy"
-						type="Transparent"/>
-					<m:Button
-						icon="sap-icon://action"
-						type="Transparent"/>
+						icon="sap-icon://sys-cancel"
+						type="Transparent"
+						press="onDetailCancel"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
@@ -40,7 +38,7 @@
 					class="sapUiTinyMarginEnd">
 				</f:Avatar>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Main Category"/>
+					<m:Label text="Customer Feedback"/>
 					<m:Text text="{/actionitem}"/>
 				</m:VBox>
 				
