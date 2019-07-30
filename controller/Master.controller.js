@@ -27,58 +27,38 @@ sap.ui.define([
 					this.byId("login").open();
 				}
 			}
-
 			this.oRouter = this.getOwnerComponent().getRouter();
 
-			this.oView = this.getView();
-			this._bDescendingSort = false;
+			var authString = "Bearer  ".concat(sessionStorage.getItem("accessToken"));
+			// load data
+			$.ajax({
+				url: "https://survey-tool-backend.herokuapp.com/survey/list/lob/",
+				type: 'GET',
+				dataType: 'json',
+				headers: {
+					'Authorization': authString
+				},
+				contentType: 'application/json; charset=utf-8',
+				success: function (data) {
+				  console.log(data)
+				},
+				error: function (error) {
+					
+				}
+			});
+
 			var oModel = new JSONModel();
 			oModel.loadData("mock.json");
 			this.getView().byId("list").setModel(oModel);
-
-			var ocreateModel = new JSONModel();
-			ocreateModel.setData(
-				{
-					"lobs": [
-						{ "name": "Finance" },
-						{ "name": "Hana" }
-					],
-					"service_area": [
-						{ "name": "GCS Central Infrastructure Operations" },
-						{ "name": "GCS Service Management " }
-					],
-
-					"priority": [
-						{ "name": "1" },
-						{ "name": "2" },
-						{ "name": "3" }
-					],
-					"status": [
-						{ "name": "Accepted" },
-						{ "name": "In Progress" },
-						{ "name": "On Hold" },
-						{ "name": "Finished" }
-					]
-				}
-			);
-			this.getView().setModel(ocreateModel, "createModel");
-
 		},
 
 		onRowPress: function (oEvent) {
 			// gets index that corresponds to position in json array
 			var selectedIndex = oEvent.getSource().getBindingContext().sPath.split("/").slice(-1).pop();
-
 			// gets the id as specified in the json file (e.g. 'aID')
 			var feedbackItemModel = oEvent.getSource().getBindingContext().oModel.oData.actionitems[selectedIndex].aID;
-
-			// Öffnen des Detail Views	
-			var productPath = oEvent.getSource().getBindingContext().getPath();
+			// Öffnen des Detail Views
 			this.oRouter.navTo("detail", { layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, actionitem: feedbackItemModel });
-		},
-
-		onSearch: function (oEvent) {
-
 		},
 
 		_getDialog: function () {
@@ -155,14 +135,6 @@ sap.ui.define([
 
 		_onCloseDialog: function (id_to_close) {
 			this.byId(id_to_close).close();
-		},
-
-		onSort: function () {
-
-		},
-
-		onListItemPress: function () {
-
 		}
 	});
 });
