@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core" 
     xmlns:l="sap.ui.layout" 
     xmlns:u="sap.ui.unified">
-    <Dialog id="actionItemDialog" title="{i18n>addActionItemText}">
+    <Dialog id="ActionItemDialog" title="{i18n>addActionItemText}">
 
         <Panel>
             <content>
@@ -31,7 +31,7 @@
 
         <buttons>
             <Button text="Save" press="onSave" type="Accept" icon="sap-icon://accept"/>
-            <Button text="Cancel" press="onCloseDialog" type="Reject" icon="sap-icon://sys-cancel"/>
+            <Button text="Cancel" press="onCloseDialogGeneric('ActionItemDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
     </Dialog>
 </core:FragmentDefinition>

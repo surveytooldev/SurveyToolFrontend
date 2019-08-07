@@ -1,26 +1,3 @@
-function loadData(refToSelf, jsonModel, nameOfModel, url) {
-	var odata;
-	$.ajax({
-		url: "https://survey-tool-backend.herokuapp.com/survey/".concat(url),
-		type: 'GET',
-		dataType: 'json',
-		headers: {
-			'Authorization': "Bearer  ".concat(sessionStorage.getItem("accessToken"))
-		},
-		contentType: 'application/json; charset=utf-8',
-		success: function (data) {
-			odata = { [nameOfModel]: data };
-			jsonModel.setData(odata);
-
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	});
-	refToSelf.getView().setModel(jsonModel, nameOfModel);
-}
-
-
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/mvc/Controller",
@@ -31,7 +8,7 @@ sap.ui.define([
 	'sap/f/library',
 	"sap/ui/core/Fragment",
 	"sap/m/MessageToast"
-], function (JSONModel, Controller, Filter, FilterOperator, Sorter, MessageBox, fioriLibrary, Fragment) {
+], function (JSONModel, Controller, Filter, FilterOperator, Sorter, MessageToast, fioriLibrary, Fragment) {
 	"use strict";
 
 	return Controller.extend("sap.surveytool.controller.Master", {
@@ -56,7 +33,10 @@ sap.ui.define([
 		},
 
 		onBeforeRendering: function () {
-			this.instantiateModels();
+
+			if (sessionStorage.getItem("accessToken") != null) {
+				this.instantiateModels();
+			}
 		},
 
 		onRowPress: function (oEvent) {
@@ -80,7 +60,8 @@ sap.ui.define([
 				passwordField.setValueStateText("Password is required");
 			}
 			else {
-				$.post('https://survey-tool-backend.herokuapp.com/survey/token/', { username: usernameField.getValue(), password: passwordField.getValue() },
+				$.post('https://survey-tool-backend.herokuapp.com/survey/token/', 
+				{ username: usernameField.getValue(), password: passwordField.getValue() },
 					function (data) {
 						if (data.access) {
 							sessionStorage.setItem("accessToken", data.access);
@@ -95,40 +76,78 @@ sap.ui.define([
 		},
 
 		instantiateModels: function () {
-			
-			loadData(this, new JSONModel(), "services", "list/service/");
+
+			/* loadData(this, new JSONModel(), "services", "list/service/");
 			loadData(this, new JSONModel(), "status", "list/status/");
-			loadData(this, new JSONModel(), "topics", "list/topic/");
+			loadData(this, new JSONModel(), "topics", "list/topic/"); */
+			this.loadData("list/service/", "services");
+			this.loadData("list/lob/", "lobs");
+			this.loadData("list/status/", "status");
+			this.loadData("list/topic/", "topics")
 			var oModel = new JSONModel();
 			oModel.loadData("mock.json");
 			this.getView().byId("list").setModel(oModel);
 		},
 
+		loadData: function (url, nameOfModel) {
+			var odata;
+			var model = new JSONModel();
+			$.ajax({
+				url: "https://survey-tool-backend.herokuapp.com/survey/".concat(url),
+				type: 'GET',
+				dataType: 'json',
+				headers: {
+					'Authorization': "Bearer  ".concat(sessionStorage.getItem("accessToken"))
+				},
+				contentType: 'application/json; charset=utf-8',
+				success: function (data) {
+					odata = { [nameOfModel]: data };
+					model.setData(odata);
+				},
+				error: function (error) {
+					if(error.status == 401){
+						//error handling for logout
+					}
+					
+				}
+			});
+			this.getView().setModel(model, nameOfModel);
+		},
+
 		//view-related functions must be excluded
-		//Github shti
-		onOpenDialog: function () {
+		onOpenDialogGeneric: function (dialogName) {
 			var oView = this.getView();
-			if (!this.byId("actionItemDialog")) {
+			if (!this.byId(dialogName)) {
 				Fragment.load({
 					id: oView.getId(),
-					name: "sap.surveytool.view.ActionItemDialog",
+					name: "sap.surveytool.view.".concat(dialogName),
 					controller: this
 				}).then(function (oDialog) {
 					oView.addDependent(oDialog);
 					oDialog.open();
 				});
 			} else {
-				this.byId("actionItemDialog").open();
+				this.byId(dialogName).open();
 			}
-
 		},
 
-		onCloseDialog: function (id_to_close) {
-			this.byId("actionItemDialog").close();
+		onCloseDialogGeneric: function (dialogId) {
+			this.byId(dialogId).close();
 		},
 
 		onViewLob: function () {
-			loadData(this, new JSONModel(), "lobs", "list/lob/");
+			this.loadData("list/lob/", "lobs");
+			this.onOpenDialogGeneric("List");
+		},
+		onDeleteLob: function(){
+			var itemText = this.getView().byId("lobList").getSelectedItem().getText();
+		},
+		onViewService: function () {
+			this.loadData("list/service/", "services");
+			this.onOpenDialogGeneric("ServiceList");
+		},
+		onDeleteService: function(){
+			var itemText = this.getView().byId("serviceList").getSelectedItem().getText();
 		}
 	});
 });

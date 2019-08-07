@@ -19,10 +19,10 @@
 				<OverflowToolbar class="sapFDynamicPageAlignContent">
 					<Button text="View LoBs" press=".onViewLob"/>
 					<Button text="View Statuses" press="onViewStatus"/>
-					<Button text="View Service Areas" press="onViewService"/>
+					<Button text="View Service Areas" press=".onViewService"/>
 					<ToolbarSpacer/>
 					<SearchField search=".onSearch" width="17.5rem"/>
-					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialog"/>
+					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialogGeneric('ActionItemDialog')"/>
 				</OverflowToolbar>
 				<List id="list" items="{/actionitems}">
 				<items>
