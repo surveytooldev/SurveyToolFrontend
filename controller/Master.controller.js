@@ -138,11 +138,12 @@ sap.ui.define([
 					'Authorization': "Bearer  ".concat(sessionStorage.getItem("accessToken"))
 				},
 				contentType: 'application/json; charset=utf-8',
-				data: {
+				data: 
 					data
-				},
+				,
 				success: function (data) {
 					console.log(data);
+					MessageToast.show(JSON.stringify(data));
 				},
 				error: function (e) {
 					t.handleError(e);
@@ -155,7 +156,7 @@ sap.ui.define([
 			var token = sessionStorage.getItem("refreshToken");
 			var json = { refresh: token };
 			if (e.status == 401) {
-				MessageToast.show("Token outdated or not authorized, please try again");
+				MessageToast.show("Your session has expired, please reload the page");
 				$.ajax({
 					url: "https://survey-tool-backend.herokuapp.com/survey/token/refresh/",
 					type: 'POST',
@@ -200,6 +201,19 @@ sap.ui.define([
 		onCloseDialogGeneric: function (dialogId) {
 			this.byId(dialogId).close();
 		},
+		onAddItemPress: function(url)	{
+			this.onOpenDialogGeneric("dialog.ItemDialog", "ItemDialog");
+			this.byId("ItemDialog").setTitle(url);
+		},
+
+		onSaveItem: function()	{
+			var _name = this.getView().byId("itemName").getValue();
+			var _desc = this.getView().byId("itemDescription").getValue();
+			var json = { name : _name , description : _desc};
+			var data = JSON.stringify(json);
+			this.postData(this.byId("ItemDialog").getTitle(), data);
+		},
+
 		onViewList: function (url, nameOfModel, pathToFragment, nameForId) {
 			this.loadData(url, nameOfModel);
 			this.onOpenDialogGeneric(pathToFragment, nameForId);

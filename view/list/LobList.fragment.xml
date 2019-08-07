@@ -12,7 +12,7 @@
         	<core:Item key="{lobs>name}" text="{lobs>name}" />
     </SelectList>
     <buttons>
-            <Button text="Add" press="onAddLob"/>
+            <Button text="Add" press="onAddItemPress('list/lob/')"/>
             <Button text="Delete" press="onDeleteLob"/>
             <Button text="Close" press="onCloseDialogGeneric('LobList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>

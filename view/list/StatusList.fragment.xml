@@ -12,7 +12,7 @@
         	<core:Item key="{status>name}" text="{status>name}" />
     </SelectList>
     <buttons>
-            <Button text="Add" press="onAddStatus"/>
+            <Button text="Add" press="onAddItemPress('list/status/')"/>
             <Button text="Delete" press="onDeleteStatus"/>
             <Button text="Close" press="onCloseDialogGeneric('StatusList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>

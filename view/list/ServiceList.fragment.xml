@@ -12,7 +12,7 @@
         	<core:Item key="{services>name}" text="{services>name}" />
     </SelectList>
     <buttons>
-            <Button text="Add" press="onAddService"/>
+            <Button text="Add" press="onAddItemPress('list/service/')"/>
             <Button text="Delete" press="onDeleteService"/>
             <Button text="Close" press="onCloseDialogGeneric('ServiceList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>

@@ -12,7 +12,7 @@
         	<core:Item key="{topics>name}" text="{topics>name}" />
     </SelectList>
     <buttons>
-            <Button text="Add" press="onAddTopic"/>
+            <Button text="Add" press="onAddItemPress('list/topic/')"/>
             <Button text="Delete" press="onDeleteTopic"/>
             <Button text="Close" press="onCloseDialogGeneric('TopicList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
