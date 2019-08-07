@@ -17,13 +17,12 @@
 		<f:content>
 			<VBox fitContainer="true">
 				<OverflowToolbar class="sapFDynamicPageAlignContent">
-					<Button text="View LoBs" press="onViewLob"/>
+					<Button text="View LoBs" press=".onViewLob"/>
 					<Button text="View Statuses" press="onViewStatus"/>
 					<Button text="View Service Areas" press="onViewService"/>
 					<ToolbarSpacer/>
 					<SearchField search=".onSearch" width="17.5rem"/>
 					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialog"/>
-					<OverflowToolbarButton icon="sap-icon://sort" text="Sort" type="Transparent" press=".onSort"/>
 				</OverflowToolbar>
 				<List id="list" items="{/actionitems}">
 				<items>

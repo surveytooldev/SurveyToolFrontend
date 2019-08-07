@@ -9,25 +9,6 @@ sap.ui.define([
             this.oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);
         },
         _onObjectMatched: function (oEvent) {
-            $.get("http://ip-api.com/json/24.48.0.1", function(data){
-                //console.log(data);
-            });
-            //$.post("https://survey-tool-backend.herokuapp.com/survey/token/", {username: "admin", password:"admin"}).done(function(data){console.log(data)})
-            
-            $.ajax({
-                type: 'POST',
-                url: 'https://survey-tool-backend.herokuapp.com/survey/token/',
-                crossDomain: true,
-                data: '{"username": "admin", "password":"admin"}',
-                dataType: 'json',
-                success: function(responseData, textStatus, jqXHR) {
-                   console.log(responseData)
-                },
-                error: function (responseData, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
-            
             console.log(oEvent.getParameter("arguments").actionitem);
         },
         

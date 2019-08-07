@@ -1,19 +1,23 @@
-function loadData(authString) {
+function loadData(refToSelf, jsonModel, nameOfModel, url) {
+	var odata;
 	$.ajax({
-		url: "https://survey-tool-backend.herokuapp.com/survey/list/lob/",
+		url: "https://survey-tool-backend.herokuapp.com/survey/".concat(url),
 		type: 'GET',
 		dataType: 'json',
 		headers: {
-			'Authorization': authString
+			'Authorization': "Bearer  ".concat(sessionStorage.getItem("accessToken"))
 		},
 		contentType: 'application/json; charset=utf-8',
 		success: function (data) {
-			return data;
+			odata = { [nameOfModel]: data };
+			jsonModel.setData(odata);
+
 		},
 		error: function (error) {
-			return error;
+			console.log(error);
 		}
 	});
+	refToSelf.getView().setModel(jsonModel, nameOfModel);
 }
 
 
@@ -34,7 +38,6 @@ sap.ui.define([
 
 		onInit: function () {
 			this.oRouter = this.getOwnerComponent().getRouter();
-
 			if (sessionStorage.getItem("accessToken") == null) {
 				var oView = this.getView();
 				if (!this.byId("login")) {
@@ -50,10 +53,10 @@ sap.ui.define([
 					this.byId("login").open();
 				}
 			}
-			var authString = "Bearer  ".concat(sessionStorage.getItem("accessToken"));
-			var oModel = new JSONModel();
-			oModel.loadData("mock.json");
-			this.getView().byId("list").setModel(oModel);
+		},
+
+		onBeforeRendering: function () {
+			this.instantiateModels();
 		},
 
 		onRowPress: function (oEvent) {
@@ -91,6 +94,16 @@ sap.ui.define([
 
 		},
 
+		instantiateModels: function () {
+			
+			loadData(this, new JSONModel(), "services", "list/service/");
+			loadData(this, new JSONModel(), "status", "list/status/");
+			loadData(this, new JSONModel(), "topics", "list/topic/");
+			var oModel = new JSONModel();
+			oModel.loadData("mock.json");
+			this.getView().byId("list").setModel(oModel);
+		},
+
 		//view-related functions must be excluded
 		//Github shti
 		onOpenDialog: function () {
@@ -113,5 +126,9 @@ sap.ui.define([
 		onCloseDialog: function (id_to_close) {
 			this.byId("actionItemDialog").close();
 		},
+
+		onViewLob: function () {
+			loadData(this, new JSONModel(), "lobs", "list/lob/");
+		}
 	});
 });
