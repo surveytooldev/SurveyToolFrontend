@@ -17,12 +17,14 @@
 		<f:content>
 			<VBox fitContainer="true">
 				<OverflowToolbar class="sapFDynamicPageAlignContent">
-					<Button text="View LoBs" press=".onViewLob"/>
-					<Button text="View Statuses" press="onViewStatus"/>
-					<Button text="View Service Areas" press=".onViewService"/>
+					<Button id="lobButton" text="View LoBs" press=".onViewList('list/lob/', 'lobs', 'list.LobList', 'LobList')"/>
+					<Button id="statusButton" text="View Statuses" press=".onViewList('list/status/', 'status', 'list.StatusList', 'StatusList')"/>
+					<Button id="serviceButton" text="View Service Areas" press=".onViewList('list/service/', 'services', 'list.ServiceList', 'ServiceList')"/>
+					<Button id="topicButton" text="View Topics" press=".onViewList('list/topic/', 'topics', 'list.TopicList', 'TopicList')"/>
 					<ToolbarSpacer/>
 					<SearchField search=".onSearch" width="17.5rem"/>
-					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialogGeneric('ActionItemDialog')"/>
+					<OverflowToolbarButton id="addButton" icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialogGeneric('ActionItemDialog', 'ActionItemDialog')"/>
+					<OverflowToolbarButton icon="sap-icon://visits" text="Logout" press=".onLogout"/>
 				</OverflowToolbar>
 				<List id="list" items="{/actionitems}">
 				<items>

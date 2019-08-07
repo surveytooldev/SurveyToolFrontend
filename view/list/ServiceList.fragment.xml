@@ -3,7 +3,7 @@
    xmlns:core="sap.ui.core" >
    <Dialog id="ServiceList"
       title="Services">
-    <SelectList id="serviceList" headerText="All Services" items="{
+    <SelectList id="serviceList" items="{
 			path: 'services>/services',
 			sorter: {
 				path: 'Name'

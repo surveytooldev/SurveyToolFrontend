@@ -1,9 +1,9 @@
 <core:FragmentDefinition
    xmlns="sap.m"
    xmlns:core="sap.ui.core" >
-   <Dialog id="List"
+   <Dialog id="LobList"
       title="LoBs">
-    <SelectList id="lobList" headerText="All LoBs" items="{
+    <SelectList id="lobList"  items="{
 			path: 'lobs>/lobs',
 			sorter: {
 				path: 'Name'
@@ -14,7 +14,7 @@
     <buttons>
             <Button text="Add" press="onAddLob"/>
             <Button text="Delete" press="onDeleteLob"/>
-            <Button text="Close" press="onCloseDialogGeneric('List')" type="Reject" icon="sap-icon://sys-cancel"/>
+            <Button text="Close" press="onCloseDialogGeneric('LobList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
    </Dialog>
 </core:FragmentDefinition>
