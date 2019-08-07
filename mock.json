@@ -19,17 +19,7 @@
             {"responsible":"Enzo"}
         ] 
 
-    },
-    {
-     "aID":"3",
-     "description":"Feedback No. 3",
-     "icon":"sap-icon://accelerated",
-     "details":[
-         {"lob":"hr"},
-         {"responsible":"Enzo"}
-     ] 
-
- }
+    }
        
     ]
     

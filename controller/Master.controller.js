@@ -1,3 +1,22 @@
+function loadData(authString) {
+	$.ajax({
+		url: "https://survey-tool-backend.herokuapp.com/survey/list/lob/",
+		type: 'GET',
+		dataType: 'json',
+		headers: {
+			'Authorization': authString
+		},
+		contentType: 'application/json; charset=utf-8',
+		success: function (data) {
+			return data;
+		},
+		error: function (error) {
+			return error;
+		}
+	});
+}
+
+
 sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/mvc/Controller",
@@ -7,17 +26,21 @@ sap.ui.define([
 	'sap/m/MessageBox',
 	'sap/f/library',
 	"sap/ui/core/Fragment",
+	"sap/m/MessageToast"
 ], function (JSONModel, Controller, Filter, FilterOperator, Sorter, MessageBox, fioriLibrary, Fragment) {
 	"use strict";
 
-	return Controller.extend("sap.ui.demo.fiori2.controller.Master", {
+	return Controller.extend("sap.surveytool.controller.Master", {
+
 		onInit: function () {
+			this.oRouter = this.getOwnerComponent().getRouter();
+
 			if (sessionStorage.getItem("accessToken") == null) {
 				var oView = this.getView();
 				if (!this.byId("login")) {
 					Fragment.load({
 						id: oView.getId(),
-						name: "sap.ui.demo.fiori2.view.Login",
+						name: "sap.surveytool.view.Login",
 						controller: this
 					}).then(function (oDialog) {
 						oView.addDependent(oDialog);
@@ -27,26 +50,7 @@ sap.ui.define([
 					this.byId("login").open();
 				}
 			}
-			this.oRouter = this.getOwnerComponent().getRouter();
-
 			var authString = "Bearer  ".concat(sessionStorage.getItem("accessToken"));
-			// load data
-			$.ajax({
-				url: "https://survey-tool-backend.herokuapp.com/survey/list/lob/",
-				type: 'GET',
-				dataType: 'json',
-				headers: {
-					'Authorization': authString
-				},
-				contentType: 'application/json; charset=utf-8',
-				success: function (data) {
-				  console.log(data)
-				},
-				error: function (error) {
-					
-				}
-			});
-
 			var oModel = new JSONModel();
 			oModel.loadData("mock.json");
 			this.getView().byId("list").setModel(oModel);
@@ -61,63 +65,40 @@ sap.ui.define([
 			this.oRouter.navTo("detail", { layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, actionitem: feedbackItemModel });
 		},
 
-		_getDialog: function () {
-			if (!this._oDialog) {
-				this._oDialog = sap.ui.xmlfragment("sap.ui.demo.fiori2.view.ActionItemDialog");
-				this.getView().addDependent(this._oDialog);
+		onLoginPressed: function () {
+			var usernameField = this.getView().byId("username");
+			var passwordField = this.getView().byId("password");
+			if (usernameField.getValue() == "") {
+				usernameField.setValueState(sap.ui.core.ValueState.Error);
+				usernameField.setValueStateText("Username is required");
 			}
-			return this._oDialog;
-		},
-
-		_getLoginDialog: function () {
-			if (!this._loginDialog) {
-				this._loginDialog = sap.ui.xmlfragment("sap.ui.demo.fiori2.view.Login");
-				this.getView().addDependent(this._loginDialog);
+			if (passwordField.getValue() == "") {
+				passwordField.setValueState(sap.ui.core.ValueState.Error);
+				passwordField.setValueStateText("Password is required");
 			}
-			return this._loginDialog;
-		},
-
-		onLogin: function () {
-			var username = this.getView().byId("username").getValue();
-			var password = this.getView().byId("password").getValue();
-			var success = false;
-				$.post('https://survey-tool-backend.herokuapp.com/survey/token/', { username: username, password: password },
+			else {
+				$.post('https://survey-tool-backend.herokuapp.com/survey/token/', { username: usernameField.getValue(), password: passwordField.getValue() },
 					function (data) {
-						if(data.access){
+						if (data.access) {
 							sessionStorage.setItem("accessToken", data.access);
 							sessionStorage.setItem("refreshToken", data.refresh);
-							success = true;
+							location.reload();
 						}
 					}).fail(function () {
-						console.log(error);
+
 					});
-			if (success){
-				_onCloseDialog("login");
 			}
+
 		},
 
-		_openLoginDialog: function () {
-			var oView = this.getView();
-			if (!this.byId("login")) {
-				Fragment.load({
-					id: oView.getId(),
-					name: "sap.ui.demo.fiori2.view.Login",
-					controller: this
-				}).then(function (oDialog) {
-					oView.addDependent(oDialog);
-					oDialog.open();
-				});
-			} else {
-				this.byId("login").open();
-			}
-		},
-
+		//view-related functions must be excluded
+		//Github shti
 		onOpenDialog: function () {
 			var oView = this.getView();
 			if (!this.byId("actionItemDialog")) {
 				Fragment.load({
 					id: oView.getId(),
-					name: "sap.ui.demo.fiori2.view.ActionItemDialog",
+					name: "sap.surveytool.view.ActionItemDialog",
 					controller: this
 				}).then(function (oDialog) {
 					oView.addDependent(oDialog);
@@ -132,9 +113,5 @@ sap.ui.define([
 		onCloseDialog: function (id_to_close) {
 			this.byId("actionItemDialog").close();
 		},
-
-		_onCloseDialog: function (id_to_close) {
-			this.byId(id_to_close).close();
-		}
 	});
 });

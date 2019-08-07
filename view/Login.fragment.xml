@@ -7,16 +7,16 @@
         <Panel>
             <content>
                 <l:VerticalLayout width="100%">
-                    <Input type="Text" placeholder="Username" id="username"/>
-                     <Input type="Password" placeholder="Password" id="password"/>
-                    
+                    <Label text="Username" required="true"/>
+                    <Input type="Text"  id="username" required="true"/>
+                    <Label text="Password" required="true"/>
+                    <Input type="Password" id="password"/>
                 </l:VerticalLayout>
             </content>
         </Panel>
         <buttons>
-        
             <Button text="Register" press="onRegister" type="Accept" icon="sap-icon://accept"/>
-            <Button text="Login" press="onLogin" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Login" press="onLoginPressed" type="Accept" icon="sap-icon://accept"/>
         </buttons>
     </Dialog>
 </core:FragmentDefinition>

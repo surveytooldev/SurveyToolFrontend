@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="sap.ui.demo.fiori2.controller.Master"
+	controllerName="sap.surveytool.controller.Master"
 	xmlns="sap.m"
 	xmlns:f="sap.f"
 	xmlns:mvc="sap.ui.core.mvc">
@@ -17,6 +17,9 @@
 		<f:content>
 			<VBox fitContainer="true">
 				<OverflowToolbar class="sapFDynamicPageAlignContent">
+					<Button text="View LoBs" press="onViewLob"/>
+					<Button text="View Statuses" press="onViewStatus"/>
+					<Button text="View Service Areas" press="onViewService"/>
 					<ToolbarSpacer/>
 					<SearchField search=".onSearch" width="17.5rem"/>
 					<OverflowToolbarButton icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialog"/>

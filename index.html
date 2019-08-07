@@ -3,13 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SurveyTool</title>
+	<title>SAP Fiori 2.0 App Tutorial</title>
 	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script id="sap-ui-bootstrap"
 		src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
 		data-sap-ui-theme="sap_belize"
 		data-sap-ui-resourceroots='{
-			"sap.ui.demo.fiori2": "./"
+			"sap.surveytool": "./"
 		}'
 		data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
 		data-sap-ui-compatVersion="edge"
@@ -20,7 +22,7 @@
 
 <body class="sapUiBody sapUiSizeCompact">
 	<div data-sap-ui-component
-		data-name="sap.ui.demo.fiori2"
+		data-name="sap.surveytool"
 		data-height="100%"
 		data-id="container"
 		data-settings='{"id" : "fiori2"}'

@@ -5,7 +5,7 @@ sap.ui.define([
 ], function(UIComponent, JSONModel, fioriLibrary) {
 	'use strict';
 
-	return UIComponent.extend('sap.ui.demo.fiori2.Component', {
+	return UIComponent.extend('sap.surveytool.Component', {
 
 		metadata: {
 			manifest: 'json'
