@@ -92,6 +92,7 @@ sap.ui.define([
 		},
 
 		//view-related functions must be excluded
+		//Github shti
 		onOpenDialog: function () {
 			var oView = this.getView();
 			if (!this.byId("actionItemDialog")) {
