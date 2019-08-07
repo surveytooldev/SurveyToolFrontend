@@ -2,9 +2,36 @@
     xmlns:core="sap.ui.core" 
     xmlns:l="sap.ui.layout" 
     xmlns:u="sap.ui.unified">
-    <Dialog id="actionItemDialog" title="Create Feedback">
+    <Dialog id="actionItemDialog" title="{i18n>addActionItemText}">
 
-       <Button text="hello">
+        <Panel>
+            <content>
+                <l:VerticalLayout width="100%">
+                    <Input type="Text" placeholder="Topic" id="topicText"/>
+                    <TextArea placeholder="Description" growing="true" growingMaxLines="7" width="100%" maxLength="500" id="descText"/>
+                   
+                    <Input id="nps" type="Number" placeholder="NPS"/>
+                    <TextArea id="feedback" placeholder="Feedback" growing="true" growingMaxLines="7" width="100%" maxLength="500"/>
+                </l:VerticalLayout>
+            </content>
+        </Panel>
+        <CheckBox id="actionNeeded" text="Action Plan Needed" selected="false" select="onActionPlanSelect"/>
+        <Panel visible="false" id="actionPlan">
 
+            <content>
+                <l:VerticalLayout width="100%">
+                    <Input id="owner" type="Text" placeholder="Owner"/>
+                    <u:Calendar id="calendar" select="handleCalendarSelect" />
+                    <Input id="itemComment" type="Text" placeholder="Comment"/>
+                </l:VerticalLayout>
+            </content>
+        </Panel>
+        <CheckBox id="handled" text="Is Handled" selected="false" select="onHandleSelect" />
+        <TextArea placeholder="Comment" visible="false" id="handledComment" width="100%"/>
+
+        <buttons>
+            <Button text="Save" press="onSave" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Cancel" press="onCloseDialog" type="Reject" icon="sap-icon://sys-cancel"/>
+        </buttons>
     </Dialog>
 </core:FragmentDefinition>

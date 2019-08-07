@@ -3,14 +3,14 @@ sap.ui.define([
     'sap/f/library'
 ], function (Controller, fioriLibrary) {
     "use strict";
-    return Controller.extend("sap.ui.demo.fiori2.controller.Detail", {
+    return Controller.extend("sap.surveytool.controller.Detail", {
         onInit: function () {
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             this.oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this);
         },
         _onObjectMatched: function (oEvent) {
             $.get("http://ip-api.com/json/24.48.0.1", function(data){
-                console.log(data);
+                //console.log(data);
             });
             //$.post("https://survey-tool-backend.herokuapp.com/survey/token/", {username: "admin", password:"admin"}).done(function(data){console.log(data)})
             
@@ -24,7 +24,7 @@ sap.ui.define([
                    console.log(responseData)
                 },
                 error: function (responseData, textStatus, errorThrown) {
-                    //alert('POST failed.');
+                    alert(errorThrown);
                 }
             });
             
