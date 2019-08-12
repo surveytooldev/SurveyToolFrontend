@@ -1,47 +1,28 @@
-<mvc:View
-	controllerName="sap.surveytool.controller.Detail"
-	xmlns="sap.uxap"
-	xmlns:m="sap.m"
-	xmlns:f="sap.f"
-	xmlns:form="sap.ui.layout.form"
+<mvc:View controllerName="sap.surveytool.controller.Detail" 
+	xmlns="sap.uxap" 
+	xmlns:m="sap.m" 
+	xmlns:f="sap.f" 
+	xmlns:form="sap.ui.layout.form" 
 	xmlns:mvc="sap.ui.core.mvc">
-	<ObjectPageLayout
-		id="ObjectPageLayout"
-		showTitleInHeaderContent="true"
-		alwaysShowContentHeader="false"
-		preserveHeaderStateOnScroll="false"
-		headerContentPinnable="true"
-		isChildPage="true"
-		upperCaseAnchorBar="false">
+	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<actions>
-					<m:ToggleButton
-						text="Edit"
-						type="Emphasized"/>
-					<m:Button
-						text="Delete"
-						type="Transparent"/>
-					<m:Button
-						icon="sap-icon://sys-cancel"
-						type="Transparent"
-						press="onDetailCancel"/>
+					<m:ToggleButton text="Edit" type="Emphasized"/>
+					<m:Button text="Delete" type="Transparent" press=".onDelete"/>
+					<m:Button icon="sap-icon://sys-cancel" type="Transparent" press="onDetailCancel"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
 		<headerContent>
 			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
-				<f:Avatar
-					src="sap-icon://survey"
-					displaySize="L"
-					displayShape="Square"
-					class="sapUiTinyMarginEnd">
+				<f:Avatar src="sap-icon://survey" displaySize="L" displayShape="Square" class="sapUiTinyMarginEnd">
 				</f:Avatar>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
-					<m:Label text="Customer Feedback"/>
-					<m:Text text="{item>/name}"/>
+					<m:Label text="Feedback"/>
+					<m:Text text="{item>/item/name}"/>
 				</m:VBox>
-				
+
 			</m:FlexBox>
 		</headerContent>
 
@@ -50,19 +31,26 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							<form:SimpleForm
-								maxContainerCols="2"
-								editable="false"
-								layout="ResponsiveGridLayout"
-								labelSpanL="12"
-								labelSpanM="12"
-								emptySpanL="0"
-								emptySpanM="0"
-								columnsL="1"
-								columnsM="1">
+							<form:SimpleForm maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" columnsL="1" columnsM="1">
 								<form:content>
-									<m:Label text="Product ID"/>
-									<m:Text text="{/item>name}"/>
+									<m:Label text="ID"/>
+									<m:Text id="item_id" text="{item>/item/id}"/>
+								</form:content>
+								<form:content>
+									<m:Label text="Description"/>
+									<m:Text text="{item>/item/description}"/>
+								</form:content>
+								<form:content>
+									<m:Label text="Topic"/>
+									<m:Text text="{item>/item/topic/name}"/>
+								</form:content>
+								<form:content>
+									<m:Label text="Service"/>
+									<m:Text text="{item>/item/service/name}"/>
+								</form:content>
+								<form:content>
+									<m:Label text="LoB"/>
+									<m:Text text="{item>/item/lob/name}"/>
 								</form:content>
 							</form:SimpleForm>
 						</blocks>
@@ -70,16 +58,51 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Suppliers">
+			<ObjectPageSection title="Questionnaire Results">
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-							
+						<form:SimpleForm>
+							<form:content>
+								<m:Label text="Dummy"/>
+								<m:Text text="{item>/item/lob/name}"/>
+							</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection title="Action Item">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+						<form:SimpleForm>
+							<form:content>
+								<m:Label text="Dummy"/>
+								<m:Text text="{item>/item/lob/name}"/>
+							</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection title="Action Plan">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+						<form:SimpleForm>
+							<form:content>
+								<m:Label text="Dummy"/>
+								<m:Text text="{item>/item/lob/name}"/>
+							</form:content>
+							</form:SimpleForm>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
 		</sections>
 
-		</ObjectPageLayout>
-		</mvc:View>
+	</ObjectPageLayout>
+</mvc:View>

@@ -15,6 +15,7 @@ sap.ui.define([
 
 		onInit: function () {
 			this.oRouter = this.getOwnerComponent().getRouter();
+			this.oRouter.getRoute("master").attachPatternMatched(this._onObjectMatched, this);
 			if (sessionStorage.getItem("accessToken") == null) {
 				var oView = this.getView();
 				if (!this.byId("login")) {
@@ -46,11 +47,13 @@ sap.ui.define([
 			}
 		},
 
+		_onObjectMatched: function()	{
+			
+		},
+
 		onRowPress: function (oEvent) {
 			// gets index that corresponds to position in json array
-			console.log(this.getView().byId("list").getModel("feedback"))
 			var selectedIndex = oEvent.getSource().getBindingContext().sPath.split("/").slice(-1).pop();
-			console.log(selectedIndex);
 			// gets the id as specified in the json file (e.g. 'aID')
 			var feedbackItemModel = oEvent.getSource().getBindingContext().oModel.oData.feedback[selectedIndex].id;
 			// Öffnen des Detail Views
