@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:u="sap.ui.unified">
+    <Dialog id="UserDialog" title="">
+
+        <Panel>
+            <content>
+                <Select id="user_status"
+            forceSelection ="true" items="{
+						path: '/user_status',
+						sorter: { path: 'name' }
+					}">
+                    <core:Item key="{name}" text="{name}" />
+                </Select>
+                <Button text="Show Users" press=".onShowUsers"/>
+                <SelectList id="userList" items="{
+			path: 'users>/users',
+			sorter: {
+				path: 'Name'
+			}
+		}">
+                    <core:Item key="{users>username}" text="Username: {users>username} LoB: {users>profile/lob} E-Mail: {users>email}" />
+                </SelectList>
+            </content>
+        </Panel>
+        <buttons>
+            <Button enabled="false" id="activate" text="Activate" press=".onChangeUserStatus('activate')"  />
+            <Button enabled="false" id="deactivate" text="Deactivate" press=".onChangeUserStatus('deactivate')" />
+            <Button enabled="false" id="delete" text="Delete" press=".onChangeUserStatus('delete')" />
+            <Button text="Cancel" press="onCloseDialogGeneric('UserDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
