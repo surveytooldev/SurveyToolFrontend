@@ -26,9 +26,9 @@
 					<OverflowToolbarButton id="addButton" icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialogGeneric('ActionItemDialog', 'ActionItemDialog')"/>
 					<OverflowToolbarButton icon="sap-icon://visits" text="Logout" press=".onLogout"/>
 				</OverflowToolbar>
-				<List id="list" items="{/actionitems}">
+				<List id="list" items="{/feedback}">
 				<items>
-									<ObjectListItem type="Navigation" title="{description}" press=".onRowPress" >
+									<ObjectListItem type="Navigation" title="{name}" press=".onRowPress" >
 									<attributes>
 									<ObjectAttribute text="{aID}" />
 									</attributes>

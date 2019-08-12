@@ -48,11 +48,13 @@ sap.ui.define([
 
 		onRowPress: function (oEvent) {
 			// gets index that corresponds to position in json array
+			console.log(this.getView().byId("list").getModel("feedback"))
 			var selectedIndex = oEvent.getSource().getBindingContext().sPath.split("/").slice(-1).pop();
+			console.log(selectedIndex);
 			// gets the id as specified in the json file (e.g. 'aID')
-			var feedbackItemModel = oEvent.getSource().getBindingContext().oModel.oData.actionitems[selectedIndex].aID;
+			var feedbackItemModel = oEvent.getSource().getBindingContext().oModel.oData.feedback[selectedIndex].id;
 			// Öffnen des Detail Views
-			this.oRouter.navTo("detail", { layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, actionitem: feedbackItemModel });
+			this.oRouter.navTo("detail", { layout: fioriLibrary.LayoutType.TwoColumnsMidExpanded, feedbackId: feedbackItemModel });
 		},
 
 		onLoginPressed: function () {
@@ -101,9 +103,11 @@ sap.ui.define([
 		},
 
 		instantiateModels: function () {
-			var oModel = new JSONModel();
-			oModel.loadData("mock.json");
-			this.getView().byId("list").setModel(oModel);
+			this.loadData("feedback/", "feedback");
+
+			//oModel.loadData("mock.json");
+			//this.getView().byId("list").setModel(oModel);
+			this.getView().byId("list").setModel(this.getView().getModel("feedback"));
 		},
 
 		loadData: function (url, nameOfModel) {

@@ -39,7 +39,7 @@
 				</f:Avatar>
 				<m:VBox justifyContent="Center" class="sapUiSmallMarginEnd">
 					<m:Label text="Customer Feedback"/>
-					<m:Text text="{/actionitem}"/>
+					<m:Text text="{item>/name}"/>
 				</m:VBox>
 				
 			</m:FlexBox>
@@ -62,7 +62,7 @@
 								columnsM="1">
 								<form:content>
 									<m:Label text="Product ID"/>
-									<m:Text text="hello"/>
+									<m:Text text="{/item>name}"/>
 								</form:content>
 							</form:SimpleForm>
 						</blocks>

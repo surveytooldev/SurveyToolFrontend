@@ -47,7 +47,7 @@
 					]
 				},
 				{
-					"pattern": "detail/{actionitem}/{layout}",
+					"pattern": "detail/{feedbackId}/{layout}",
 					"name": "detail",
 					"target": [
 						"master",
