@@ -17,14 +17,15 @@
 		<f:content>
 			<VBox fitContainer="true">
 				<OverflowToolbar class="sapFDynamicPageAlignContent">
-					<Button id="lobButton" text="View LoBs" press=".onViewList('list/lob/', 'lobs', 'list.LobList', 'LobList')"/>
-					<Button id="statusButton" text="View Statuses" press=".onViewList('list/status/', 'status', 'list.StatusList', 'StatusList')"/>
-					<Button id="serviceButton" text="View Service Areas" press=".onViewList('list/service/', 'services', 'list.ServiceList', 'ServiceList')"/>
-					<Button id="topicButton" text="View Topics" press=".onViewList('list/topic/', 'topics', 'list.TopicList', 'TopicList')"/>
+					<Button id="lobButton" text="LoBs" press=".onViewList('list/lob/', 'lobs', 'list.LobList', 'LobList')"/>
+					<Button id="statusButton" text="Statuses" press=".onViewList('list/status/', 'status', 'list.StatusList', 'StatusList')"/>
+					<Button id="serviceButton" text="Service Areas" press=".onViewList('list/service/', 'services', 'list.ServiceList', 'ServiceList')"/>
+					<Button id="topicButton" text="Topics" press=".onViewList('list/topic/', 'topics', 'list.TopicList', 'TopicList')"/>
+					<Button id="questionButton" text="Questions" press=".onOpenDialogGeneric('dialog/QuestionDialog', 'QuestionDialog')"/>
 					<Button id="userButton" text="Manage Users" press=".onOpenDialogGeneric('dialog/UserDialog', 'UserDialog')"/>
 					<ToolbarSpacer/>
 					<SearchField search=".onSearch" width="17.5rem"/>
-					<OverflowToolbarButton id="addButton" icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenDialogGeneric('ActionItemDialog', 'ActionItemDialog')"/>
+					<OverflowToolbarButton id="addButton" icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenFeedbackDialog('ActionItemDialog', 'ActionItemDialog')"/>
 					<OverflowToolbarButton icon="sap-icon://visits" text="Logout" press=".onLogout"/>
 				</OverflowToolbar>
 				<List id="list" items="{/feedback}">

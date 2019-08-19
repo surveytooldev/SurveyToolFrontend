@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:u="sap.ui.unified">
+    <Dialog id="AddQuestionAnswerDialog" title="Add Question-Answer">
+
+        <Panel>
+            <content>
+                <l:VerticalLayout width="100%">
+                    <Select id="question_catalogs_response" 
+            forceSelection ="true" items="{
+						path: 'question_catalogs>/question_catalogs',
+						sorter: { path: 'name' }
+					}">
+                        <core:Item key="{question_catalogs>name}" text="{question_catalogs>name}"/>
+                    </Select>
+                    <Button text="Select" press="onAddAnswer"/>
+                     <Select visible="false" id="questions_response" items="{
+			path: 'questions>/questions',
+			sorter: {
+				path: 'Name'
+			}
+		}">
+                    <core:Item key="{questions>content}" text="{questions>content}" />
+                </Select>
+                    <Input type="Text" placeholder="Please enter the response for the question" id="responseContent"/>
+                </l:VerticalLayout>
+            </content>
+        </Panel>
+        <buttons>
+            <Button text="Save" press="onSaveQuestionAnswer" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Cancel" press="onCloseDialogGeneric('AddQuestionAnswerDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

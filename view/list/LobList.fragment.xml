@@ -13,7 +13,7 @@
     </SelectList>
     <buttons>
             <Button text="Add" press="onAddItemPress('list/lob/')"/>
-            <Button text="Delete" press="onDeleteLob"/>
+            <Button text="Delete" press="onDeleteListItem( 'list/lob/', 'lobList')"/>
             <Button text="Close" press="onCloseDialogGeneric('LobList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
    </Dialog>

@@ -2,32 +2,53 @@
     xmlns:core="sap.ui.core" 
     xmlns:l="sap.ui.layout" 
     xmlns:u="sap.ui.unified">
-    <Dialog id="ActionItemDialog" title="{i18n>addActionItemText}">
+    <Dialog id="ActionItemDialog" title="Add Feedback Item">
 
         <Panel>
             <content>
                 <l:VerticalLayout width="100%">
-                    <Input type="Text" placeholder="Topic" id="topicText"/>
-                    <TextArea placeholder="Description" growing="true" growingMaxLines="7" width="100%" maxLength="500" id="descText"/>
-                   
-                    <Input id="nps" type="Number" placeholder="NPS"/>
-                    <TextArea id="feedback" placeholder="Feedback" growing="true" growingMaxLines="7" width="100%" maxLength="500"/>
+                    <Input type="Text" placeholder="Name" id="feedbackNameAdd"/>
+                    <TextArea placeholder="General Feedback" growing="true" growingMaxLines="7" width="100%" maxLength="500" id="feedbackDescription"/>
+                    <Select id="lob_feedback" items="{
+                    path: 'lobs>/lobs',
+                    sorter: {
+                        path: 'Name'
+                    }
+                }">
+                        <core:Item key="{lobs>name}" text="{lobs>name}" />
+                    </Select>
+                    <Select id="topic_feedback" items="{
+                    path: 'topics>/topics',
+                    sorter: {
+                        path: 'Name'
+                    }
+                }">
+                        <core:Item key="{topics>name}" text="{topics>name}" />
+                    </Select>
+                    <Select id="service_feedback" items="{
+                    path: 'services>/services',
+                    sorter: {
+                        path: 'Name'
+                    }
+                }">
+                        <core:Item key="{services>name}" text="{services>name}" />
+                    </Select>
+                    <List id="QuestionAnswerList" headerText="Questions and Answers" items="{
+                            path: 'question_answers>/qa',
+                            sorter: {
+                                path: 'Question'
+                            }
+                        }">
+                        <items>
+                            <StandardListItem title="Question: {question_answers>question}" description="Answer: {question_answers>content}"/>
+                        </items>
+                    </List>
+                    <Button text="Add Feedback Question" press=".onOpenDialogGeneric('dialog.AddQuestionAnswerDialog', 'AddQuestionAnswerDialog')"/>
+                    <CheckBox id="actionItemNeeded" text="Action Item Required?"/>
+                    <CheckBox id="actionPlanNeeded" text="Action Plan Required?"/>
                 </l:VerticalLayout>
             </content>
         </Panel>
-        <CheckBox id="actionNeeded" text="Action Plan Needed" selected="false" select="onActionPlanSelect"/>
-        <Panel visible="false" id="actionPlan">
-
-            <content>
-                <l:VerticalLayout width="100%">
-                    <Input id="owner" type="Text" placeholder="Owner"/>
-                    <u:Calendar id="calendar" select="handleCalendarSelect" />
-                    <Input id="itemComment" type="Text" placeholder="Comment"/>
-                </l:VerticalLayout>
-            </content>
-        </Panel>
-        <CheckBox id="handled" text="Is Handled" selected="false" select="onHandleSelect" />
-        <TextArea placeholder="Comment" visible="false" id="handledComment" width="100%"/>
 
         <buttons>
             <Button text="Save" press="onSave" type="Accept" icon="sap-icon://accept"/>

@@ -55,6 +55,7 @@ sap.ui.define([
 				this.getView().byId("topicButton").setEnabled(false);
 				this.getView().byId("statusButton").setEnabled(false);
 				this.getView().byId("addButton").setEnabled(false);
+				this.getView().byId("questionButton").setEnabled(false);
 			}
 			if (sessionStorage.getItem("userGroup") == "admin") {
 				this.getView().byId("userButton").setEnabled(true);
@@ -121,7 +122,10 @@ sap.ui.define([
 
 		instantiateModels: function () {
 			this.loadData("feedback/", "feedback");
-
+			if (sessionStorage.getItem("userGroup") != "lob") {
+				this.loadData("questioncatalogs/", "question_catalogs");
+				console.log(this.getView().getModel("question_catalogs"));
+			}
 			//oModel.loadData("mock.json");
 			//this.getView().byId("list").setModel(oModel);
 			this.getView().byId("list").setModel(this.getView().getModel("feedback"));
@@ -221,6 +225,14 @@ sap.ui.define([
 			}
 
 		},
+
+		onOpenFeedbackDialog: function (dialogName, nameForId) {
+			this.loadData('list/lob/', 'lobs');
+			this.loadData('list/status/', 'status');
+			this.loadData('list/service/', 'services');
+			this.loadData('list/topic/', 'topics');
+			this.onOpenDialogGeneric(dialogName, nameForId);
+		},
 		onCloseDialogGeneric: function (dialogId) {
 			this.byId(dialogId).close();
 		},
@@ -235,6 +247,7 @@ sap.ui.define([
 			var json = { name: _name, description: _desc };
 			var data = JSON.stringify(json);
 			this.postData(this.byId("ItemDialog").getTitle(), data);
+			this.onCloseDialogGeneric("ItemDialog");
 		},
 
 		onShowUsers: function () {
@@ -298,15 +311,85 @@ sap.ui.define([
 		},
 
 		onViewList: function (url, nameOfModel, pathToFragment, nameForId) {
+			var model = this.getView().getModel(nameOfModel);
+			if (model!=null){
+				model.destroy();
+			}
 			this.loadData(url, nameOfModel);
 			this.onOpenDialogGeneric(pathToFragment, nameForId);
 		},
-		onDeleteLob: function () {
-			var itemText = this.getView().byId("lobList").getSelectedItem().getText();
+		onDeleteListItem: function (url, id) {
+			var itemText = this.getView().byId(id).getSelectedKey();
+			var json = { name: itemText };
+			$.ajax({
+				url: "https://survey-tool-backend.herokuapp.com/survey/".concat(url),
+				type: 'DELETE',
+				dataType: 'json',
+				traditional: true,
+				headers: {
+					'Authorization': "Bearer  ".concat(sessionStorage.getItem("accessToken"))
+				},
+				contentType: 'application/json; charset=utf-8',
+				data: JSON.stringify(json),
+				success: function (data) {
+					MessageToast.show("Deleted Successfully");
+				},
+				error: function (e) {
+					console.log(e);
+				}
+			});
 		},
-		onDeleteService: function () {
-			var itemText = this.getView().byId("serviceList").getSelectedItem().getText();
+		onShowQuestions: function () {
+			var catalog = this.getView().byId("question_catalogs").getSelectedKey().toLowerCase();
+			this.loadData("questions/".concat(catalog), "questions");
 		},
+		onAddQuestion: function () {
+			this.onOpenDialogGeneric("dialog.AddQuestionDialog", "AddQuestionDialog");
+			this.byId("AddQuestionDialog").setTitle(this.getView().byId("question_catalogs").getSelectedKey().toLowerCase());
+		},
+
+		onSaveQuestion: function () {
+			if (this.getView().byId("questionContent").getValue() != "") {
+				var json = { content: this.getView().byId("questionContent").getValue(), catalog: this.byId("AddQuestionDialog").getTitle() };
+				this.postData("questions/", JSON.stringify(json));
+				this.onCloseDialogGeneric("AddQuestionDialog");
+			}
+			MessageToast.show("Content must not be empty");
+		},
+
+		onAddAnswer: function () {
+			var jsonAnswers = new JSONModel();
+			jsonAnswers.setData({
+				"qa": [
+				]
+			});
+			this.getView().setModel(jsonAnswers, "question_answers");
+			var catalog = this.getView().byId("question_catalogs_response").getSelectedKey().toLowerCase();
+			this.loadData("questions/".concat(catalog), "questions");
+			this.getView().byId("questions_response").setVisible(true);
+		},
+
+		onSaveQuestionAnswer: function () {
+			var model = this.getView().getModel("question_answers") ;
+			var data = model.getProperty("/qa");
+			if(this.getView().byId("questions_response").getSelectedKey() == null ||
+			this.getView().byId("responseContent").getValue() == null || 
+			this.getView().byId("question_catalogs_response").getSelectedKey() == null){
+				MessageToast.show("Please fill out all fields")
+			}
+			else{
+			var newData = {
+				question: this.getView().byId("questions_response").getSelectedKey(),
+				content: this.getView().byId("responseContent").getValue(),
+				catalog: this.getView().byId("question_catalogs_response").getSelectedKey()
+			
+			};
+			data.push(newData);
+			model.setProperty("/qa", data);
+			this.onCloseDialogGeneric("AddQuestionAnswerDialog");
+		}
+		},
+
 		onLogout: function () {
 			sessionStorage.clear();
 			location.reload();

@@ -13,7 +13,7 @@
     </SelectList>
     <buttons>
             <Button text="Add" press="onAddItemPress('list/service/')"/>
-            <Button text="Delete" press="onDeleteService"/>
+            <Button text="Delete" press="onDeleteListItem('list/service/', 'serviceList')"/>
             <Button text="Close" press="onCloseDialogGeneric('ServiceList')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
    </Dialog>

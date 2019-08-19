@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:u="sap.ui.unified">
+    <Dialog id="QuestionDialog" title="Manage Questions">
+
+        <Panel>
+            <content>
+            <Button text="Add Catalog"/>
+                <Select id="question_catalogs"
+            forceSelection ="true" items="{
+						path: 'question_catalogs>/question_catalogs',
+						sorter: { path: 'name' }
+					}">
+                    <core:Item key="{question_catalogs>name}" text="{question_catalogs>name}" />
+                </Select>
+                <Button text="Show Questions" press=".onShowQuestions"/>
+                <SelectList id="questions" items="{
+			path: 'questions>/questions',
+			sorter: {
+				path: 'Name'
+			}
+		}">
+                    <core:Item key="{questions>content}" text="{questions>content}" />
+                </SelectList>
+            </content>
+        </Panel>
+        <buttons>
+            <Button enabled="true" id="add_question" text="Add" press=".onAddQuestion" />
+            <Button enabled="true" id="delete_question" text="Delete" press="" />
+            <Button text="Cancel" press="onCloseDialogGeneric('QuestionDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
