@@ -29,14 +29,14 @@
 					<OverflowToolbarButton icon="sap-icon://visits" text="Logout" press=".onLogout"/>
 				</OverflowToolbar>
 				<List id="list" items="{/feedback}">
-				<items>
-									<ObjectListItem type="Navigation" title="{name}" press=".onRowPress" >
-									<attributes>
-									<ObjectAttribute text="{aID}" />
-									</attributes>
-									</ObjectListItem>
-									</items>
-								</List>
+					<items>
+						<ObjectListItem type="Navigation" title="{name}" press=".onRowPress" >
+							<attributes>
+								<ObjectAttribute text="{aID}" />
+							</attributes>
+						</ObjectListItem>
+					</items>
+				</List>
 			</VBox>
 		</f:content>
 
