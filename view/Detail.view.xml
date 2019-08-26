@@ -77,10 +77,22 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-						<form:SimpleForm>
+						<form:SimpleForm id="actionItemForm">
 							<form:content>
-								<m:Label text="Dummy"/>
-								<m:Text text="{item>/item/lob/name}"/>
+								<m:Label text="Name"/>
+								<m:Text text="{item>/item/action_item/name}"/>
+								<m:Label text="Comment"/>
+								<m:Text text="{item>/item/action_item/comment}"/>
+								<m:Label text="Creation Date"/>
+								<m:Text text="{item>/item/action_item/date_created}"/>
+								<m:Label text="Description"/>
+								<m:Text text="{item>/item/action_item/description}"/>
+								<m:Label text="Handled by Current Intitiative"/>
+								<m:Text text="{item>/item/action_item/handled_by_current_initiative}"/>
+								<m:Label text="Comment for Initiative"/>
+								<m:Text text="{item>/item/action_item/comment_initiative}"/>
+								<m:Label text="NPS Rating"/>
+								<m:Text text="{item>/item/action_item/nps_survey_rating}"/>
 							</form:content>
 							</form:SimpleForm>
 						</blocks>
