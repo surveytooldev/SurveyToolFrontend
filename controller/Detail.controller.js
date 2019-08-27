@@ -14,7 +14,8 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var id = oEvent.getParameter("arguments").feedbackId;
             this.loadData("feedback/".concat(id), "item");
-            console.log(this.getView().getModel("item"));
+            this.loadData("questionanswers/".concat(id), "questionnaire");
+            console.log(this.getView().getModel("questionnaire"));
         },
 
         onDetailCancel: function (oEvent) {

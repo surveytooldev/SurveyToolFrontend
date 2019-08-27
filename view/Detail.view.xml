@@ -8,7 +8,6 @@
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<actions>
-					<m:ToggleButton text="Edit" type="Emphasized"/>
 					<m:Button text="Delete" type="Transparent" press=".onDelete"/>
 					<m:Button icon="sap-icon://sys-cancel" type="Transparent" press="onDetailCancel"/>
 				</actions>
@@ -62,12 +61,16 @@
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>
-						<form:SimpleForm>
-							<form:content>
-								<m:Label text="Dummy"/>
-								<m:Text text="{item>/item/lob/name}"/>
-							</form:content>
-							</form:SimpleForm>
+						<m:List id="questionnaire_result" items="{questionnaire>/questionnaire}">
+					<m:items>
+						<m:ObjectListItem title="Question: {questionnaire>question/content}"  >
+							<m:attributes>
+								<m:ObjectAttribute title="Answer" text="{questionnaire>answer_text}" />
+								
+							</m:attributes>
+						</m:ObjectListItem>
+					</m:items>
+				</m:List>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
@@ -100,7 +103,7 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection title="Action Plan">
+			<ObjectPageSection title="Action Plan" id="actionPlanSection">
 				<subSections>
 					<ObjectPageSubSection>
 						<blocks>

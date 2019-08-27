@@ -34,13 +34,13 @@
                         <core:Item key="{services>name}" text="{services>name}" />
                     </Select>
                     <List id="QuestionAnswerList" headerText="Questions and Answers" items="{
-                            path: 'question_answers>/qa',
+                            path: 'question_answers>/questions',
                             sorter: {
                                 path: 'Question'
                             }
                         }">
                         <items>
-                            <StandardListItem title="Question: {question_answers>question}" description="Answer: {question_answers>content}"/>
+                            <StandardListItem title="Question: {question_answers>question}" description="Answer: {question_answers>answer_text}"/>
                         </items>
                     </List>
                     <Button text="Add Feedback Question" press=".onOpenDialogGeneric('dialog.AddQuestionAnswerDialog', 'AddQuestionAnswerDialog')"/>
@@ -51,7 +51,7 @@
         </Panel>
 
         <buttons>
-            <Button text="Save" press="onSave" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Save" press="onSaveFeedbackItem" type="Accept" icon="sap-icon://accept"/>
             <Button text="Cancel" press="onCloseDialogGeneric('ActionItemDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
     </Dialog>

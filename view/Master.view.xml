@@ -32,7 +32,9 @@
 					<items>
 						<ObjectListItem type="Navigation" title="{name}" press=".onRowPress" >
 							<attributes>
-								<ObjectAttribute text="{aID}" />
+								<ObjectAttribute id="sentiment" title="Sentiment" text="{sentiment_string}" />
+								<ObjectAttribute id="subjectivity" title="Subjectivity" text="{subjectivity_string}" />
+								<ObjectAttribute id="_lob" title="LoB" text="{lob/name}" />
 							</attributes>
 						</ObjectListItem>
 					</items>

@@ -56,6 +56,8 @@ sap.ui.define([
 				this.getView().byId("statusButton").setEnabled(false);
 				this.getView().byId("addButton").setEnabled(false);
 				this.getView().byId("questionButton").setEnabled(false);
+				this.getView().byId("sentiment").setVisible(false);
+				this.getView().byId("subjectivity").setVisible(false);
 			}
 			if (sessionStorage.getItem("userGroup") == "admin") {
 				this.getView().byId("userButton").setEnabled(true);
@@ -124,11 +126,11 @@ sap.ui.define([
 			this.loadData("feedback/", "feedback");
 			if (sessionStorage.getItem("userGroup") != "lob") {
 				this.loadData("questioncatalogs/", "question_catalogs");
-				console.log(this.getView().getModel("question_catalogs"));
 			}
 			//oModel.loadData("mock.json");
 			//this.getView().byId("list").setModel(oModel);
 			this.getView().byId("list").setModel(this.getView().getModel("feedback"));
+			console.log(this.getView().getModel("feedback"));
 		},
 
 		loadData: function (url, nameOfModel) {
@@ -340,38 +342,42 @@ sap.ui.define([
 			});
 		},
 		onShowQuestions: function () {
-			var catalog = this.getView().byId("question_catalogs").getSelectedKey().toLowerCase();
+			var catalog = this.getView().byId("question_catalogs").getSelectedKey();
 			this.loadData("questions/".concat(catalog), "questions");
 		},
 		onAddQuestion: function () {
 			this.onOpenDialogGeneric("dialog.AddQuestionDialog", "AddQuestionDialog");
-			this.byId("AddQuestionDialog").setTitle(this.getView().byId("question_catalogs").getSelectedKey().toLowerCase());
+			this.byId("AddQuestionDialog").setTitle(this.getView().byId("question_catalogs").getSelectedKey());
 		},
 
 		onSaveQuestion: function () {
 			if (this.getView().byId("questionContent").getValue() != "") {
 				var json = { content: this.getView().byId("questionContent").getValue(), catalog: this.byId("AddQuestionDialog").getTitle() };
+				console.log(json);
 				this.postData("questions/", JSON.stringify(json));
 				this.onCloseDialogGeneric("AddQuestionDialog");
 			}
+			else{
 			MessageToast.show("Content must not be empty");
+			}
 		},
 
 		onAddAnswer: function () {
 			var jsonAnswers = new JSONModel();
 			jsonAnswers.setData({
-				"qa": [
+				"questions": [
 				]
 			});
 			this.getView().setModel(jsonAnswers, "question_answers");
-			var catalog = this.getView().byId("question_catalogs_response").getSelectedKey().toLowerCase();
+			var catalog = this.getView().byId("question_catalogs_response").getSelectedKey();
 			this.loadData("questions/".concat(catalog), "questions");
 			this.getView().byId("questions_response").setVisible(true);
 		},
 
 		onSaveQuestionAnswer: function () {
 			var model = this.getView().getModel("question_answers") ;
-			var data = model.getProperty("/qa");
+			console.log(this.getView().getModel("questions"));
+			var data = model.getProperty("/questions");
 			if(this.getView().byId("questions_response").getSelectedKey() == null ||
 			this.getView().byId("responseContent").getValue() == null || 
 			this.getView().byId("question_catalogs_response").getSelectedKey() == null){
@@ -380,14 +386,38 @@ sap.ui.define([
 			else{
 			var newData = {
 				question: this.getView().byId("questions_response").getSelectedKey(),
-				content: this.getView().byId("responseContent").getValue(),
-				catalog: this.getView().byId("question_catalogs_response").getSelectedKey()
-			
+				answer_text: this.getView().byId("responseContent").getValue()
 			};
 			data.push(newData);
-			model.setProperty("/qa", data);
+			model.setProperty("/questions", data);
+			console.log(this.getView().getModel("question_answers") );
 			this.onCloseDialogGeneric("AddQuestionAnswerDialog");
 		}
+		},
+
+		onSaveFeedbackItem: function(){
+			var name = this.getView().byId("feedbackNameAdd").getValue();
+			var description = this.getView().byId("feedbackDescription").getValue();
+			var lob = this.getView().byId("lob_feedback").getSelectedKey();
+			var topic = this.getView().byId("topic_feedback").getSelectedKey();
+			var service = this.getView().byId("service_feedback").getSelectedKey();
+			var questions = this.getView().getModel("question_answers").getProperty("/questions");
+
+			var action_item = {};
+			var action_plan = {};
+
+			var result = {
+				"name":name,
+				"description":description,
+				"lob":lob,
+				"topic":topic,
+				"service":service,
+				"questions":questions,
+				"action_item":action_item,
+				"action_plan":action_plan
+			}
+			this.postData("feedback/",JSON.stringify(result));
+			this.onCloseDialogGeneric("ActionItemDialog");
 		},
 
 		onLogout: function () {

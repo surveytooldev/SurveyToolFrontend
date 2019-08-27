@@ -15,14 +15,14 @@
                         <core:Item key="{question_catalogs>name}" text="{question_catalogs>name}"/>
                     </Select>
                     <Button text="Select" press="onAddAnswer"/>
-                     <Select visible="false" id="questions_response" items="{
+                    <Select visible="false" id="questions_response" items="{
 			path: 'questions>/questions',
 			sorter: {
 				path: 'Name'
 			}
 		}">
-                    <core:Item key="{questions>content}" text="{questions>content}" />
-                </Select>
+                        <core:Item key="{questions>id}" text="{questions>content}" />
+                    </Select>
                     <Input type="Text" placeholder="Please enter the response for the question" id="responseContent"/>
                 </l:VerticalLayout>
             </content>
