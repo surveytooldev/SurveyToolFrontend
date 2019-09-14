@@ -51,6 +51,14 @@
 									<m:Label text="LoB"/>
 									<m:Text text="{item>/item/lob/name}"/>
 								</form:content>
+								<form:content>
+									<m:Label text="Sentiment Score"/>
+									<m:Text text="{item>/item/sentiment}"/>
+								</form:content>
+								<form:content>
+									<m:Label text="Subjectivity Score"/>
+									<m:Text text="{item>/item/subjectivity}"/>
+								</form:content>
 							</form:SimpleForm>
 						</blocks>
 					</ObjectPageSubSection>
