@@ -8,8 +8,8 @@
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<actions>
-					<m:Button text="Close" type="Back" press="onDetailCancel"/>
 					<m:Button text="Delete" type="Reject" press=".onDelete"/>
+					<m:Button text="Close" type="Back" press="onDetailCancel"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
