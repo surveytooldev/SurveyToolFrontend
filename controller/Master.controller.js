@@ -14,7 +14,7 @@ sap.ui.define([
 	return Controller.extend("sap.surveytool.controller.Master", {
 
 		onInit: function () {
-			
+
 			var oModel = new JSONModel();
 			oModel.setData(
 				{
@@ -123,7 +123,7 @@ sap.ui.define([
 
 		},
 
-		onRegisterPressed:  function()	{
+		onRegisterPressed: function () {
 			var odata;
 			var t = this;
 			var model = new JSONModel();
@@ -141,18 +141,69 @@ sap.ui.define([
 				}
 			});
 			this.getView().setModel(model, "lobs");
-			
+
 			this.onOpenDialogGeneric("dialog.RegisterDialog", "registerDialog");
 		},
 
-		onDeptSelect: function()	{
+		onDeptSelect: function () {
 			var _switch = this.getView().byId("reg_dept");
-			if(_switch.getState() == true){
+			if (_switch.getState() == true) {
 				console.log("Select");
 				this.getView().byId("reg_lobList").setEnabled(false);
 			}
-			else{
+			else {
 				this.getView().byId("reg_lobList").setEnabled(true);
+			}
+		},
+
+		onSendRegister: function () {
+			var t = this;
+			var username = this.getView().byId("reg_username").getValue();
+			var pw1 = this.getView().byId("reg_password").getValue();
+			var pw2 = this.getView().byId("reg_confirm_password").getValue();
+			var belonging_to_dept = this.getView().byId("reg_dept").getState();
+			var email = this.getView().byId("reg_email").getValue();
+			if(!belonging_to_dept){
+			var lob = this.getView().byId("reg_lobList").getSelectedKey();
+			}else{
+				var lob = ""
+			}
+			var isdept;
+			switch (belonging_to_dept) {
+				case true:
+					isdept = "True";
+					break;
+				case false:
+					isdept = "False";
+					break;
+			}
+			var json = JSON.stringify({
+				username: username,
+				password: pw1,
+				is_dept_employee: isdept,
+				email: email,
+				lob: lob
+			});
+			if(pw1 !== pw2 | username === "" | pw1 === "" | pw2 === "" | email === "")	{
+				MessageToast.show("Please fill out all fields correctly")
+			}else{
+				$.ajax({
+					url: "https://survey-tool-backend.herokuapp.com/survey/register/",
+					type: 'POST',
+					dataType: 'json',
+					traditional: true,
+					contentType: 'application/json; charset=utf-8',
+					data:
+						json
+					,
+					success: function (data) {
+						MessageToast.show("Registration Succeeded");
+						t.onCloseDialogGeneric("registerDialog");
+					},
+					error: function (e) {
+						MessageToast.show("Username exists already");
+					}
+				});
 			}
 		},
 
@@ -291,7 +342,7 @@ sap.ui.define([
 			var data = JSON.stringify(json);
 			this.postData(this.byId("ItemDialog").getTitle(), data);
 			this.onCloseDialogGenericRefresh("ItemDialog");
-			
+
 
 		},
 
@@ -357,7 +408,7 @@ sap.ui.define([
 
 		onViewList: function (url, nameOfModel, pathToFragment, nameForId) {
 			var model = this.getView().getModel(nameOfModel);
-			if (model!=null){
+			if (model != null) {
 				model.destroy();
 			}
 			this.loadData(url, nameOfModel);
@@ -397,7 +448,7 @@ sap.ui.define([
 			this.byId("AddQuestionDialog").setTitle(this.getView().byId("question_catalogs").getSelectedKey());
 		},
 
-		onDeleteQuestion: function(){
+		onDeleteQuestion: function () {
 
 		},
 
@@ -408,8 +459,8 @@ sap.ui.define([
 				this.postData("questions/", JSON.stringify(json));
 				this.onCloseDialogGeneric("AddQuestionDialog");
 			}
-			else{
-			MessageToast.show("Content must not be empty");
+			else {
+				MessageToast.show("Content must not be empty");
 			}
 		},
 
@@ -426,27 +477,27 @@ sap.ui.define([
 		},
 
 		onSaveQuestionAnswer: function () {
-			var model = this.getView().getModel("question_answers") ;
+			var model = this.getView().getModel("question_answers");
 			console.log(this.getView().getModel("questions"));
 			var data = model.getProperty("/questions");
-			if(this.getView().byId("questions_response").getSelectedKey() == null ||
-			this.getView().byId("responseContent").getValue() == null || 
-			this.getView().byId("question_catalogs_response").getSelectedKey() == null){
+			if (this.getView().byId("questions_response").getSelectedKey() == null ||
+				this.getView().byId("responseContent").getValue() == null ||
+				this.getView().byId("question_catalogs_response").getSelectedKey() == null) {
 				MessageToast.show("Please fill out all fields")
 			}
-			else{
-			var newData = {
-				question: this.getView().byId("questions_response").getSelectedKey(),
-				answer_text: this.getView().byId("responseContent").getValue()
-			};
-			data.push(newData);
-			model.setProperty("/questions", data);
-			console.log(this.getView().getModel("question_answers") );
-			this.onCloseDialogGeneric("AddQuestionAnswerDialog");
-		}
+			else {
+				var newData = {
+					question: this.getView().byId("questions_response").getSelectedKey(),
+					answer_text: this.getView().byId("responseContent").getValue()
+				};
+				data.push(newData);
+				model.setProperty("/questions", data);
+				console.log(this.getView().getModel("question_answers"));
+				this.onCloseDialogGeneric("AddQuestionAnswerDialog");
+			}
 		},
 
-		onSaveFeedbackItem: function(){
+		onSaveFeedbackItem: function () {
 			var name = this.getView().byId("feedbackNameAdd").getValue();
 			var description = this.getView().byId("feedbackDescription").getValue();
 			var lob = this.getView().byId("lob_feedback").getSelectedKey();
@@ -458,16 +509,16 @@ sap.ui.define([
 			var action_plan = {};
 
 			var result = {
-				"name":name,
-				"description":description,
-				"lob":lob,
-				"topic":topic,
-				"service":service,
-				"questions":questions,
-				"action_item":action_item,
-				"action_plan":action_plan
+				"name": name,
+				"description": description,
+				"lob": lob,
+				"topic": topic,
+				"service": service,
+				"questions": questions,
+				"action_item": action_item,
+				"action_plan": action_plan
 			}
-			this.postData("feedback/",JSON.stringify(result));
+			this.postData("feedback/", JSON.stringify(result));
 			this.onCloseDialogGeneric("ActionItemDialog");
 		},
 

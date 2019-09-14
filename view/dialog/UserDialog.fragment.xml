@@ -28,7 +28,7 @@
             <Button enabled="false" id="activate" text="Activate" press=".onChangeUserStatus('activate')"  />
             <Button enabled="false" id="deactivate" text="Deactivate" press=".onChangeUserStatus('deactivate')" />
             <Button enabled="false" id="delete" text="Delete" press=".onChangeUserStatus('delete')" />
-            <Button text="Cancel" press="onCloseDialogGeneric('UserDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
+            <Button text="Close" press="onCloseDialogGeneric('UserDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
     </Dialog>
 </core:FragmentDefinition>

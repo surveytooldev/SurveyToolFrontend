@@ -9,6 +9,8 @@
                 <l:VerticalLayout width="100%">
                     <Label text="Username" required="true"/>
                     <Input type="Text" id="reg_username" required="true"/>
+                    <Label text="Email" required="true"/>
+                    <Input type="Email" id="reg_email"/>
                     <Label text="Password" required="true"/>
                     <Input type="Password" id="reg_password"/>
                     <Label text="Confirm Password" required="true"/>
@@ -33,7 +35,7 @@
             </content>
         </Panel>
         <buttons>
-            <Button text="Register" press="onRegister" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Register" press="onSendRegister" type="Accept" icon="sap-icon://accept"/>
             <Button text="Cancel" press="onCloseDialogGeneric('registerDialog')" type="Reject" icon="sap-icon://cancel"/>
         </buttons>
     </Dialog>
