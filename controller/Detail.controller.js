@@ -40,7 +40,7 @@ sap.ui.define([
             });
             MessageToast.show("Deleted successfully");
             this.oRouter.navTo(("master"));
-            location.refresh();
+            location.reload();
         },
 
         loadData: function (url, nameOfModel) {
