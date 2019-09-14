@@ -44,10 +44,56 @@
                         </items>
                     </List>
                     <Button text="Add Feedback Question" press=".onOpenDialogGeneric('dialog.AddQuestionAnswerDialog', 'AddQuestionAnswerDialog')"/>
-                    <CheckBox id="actionItemNeeded" text="Action Item Required?"/>
-                    <CheckBox id="actionPlanNeeded" text="Action Plan Required?"/>
+                    <CheckBox id="actionItemNeeded" text="Action Item Required?" select="onSelectActionItem"/>
+                    <CheckBox id="actionPlanNeeded" enabled="false" text="Action Plan Required?" select="onSelectActionPlan"/>
                 </l:VerticalLayout>
             </content>
+        </Panel>
+
+        <Panel visible="false" id="actionItem">
+
+            <content>
+                <l:VerticalLayout width="100%">
+                    <Label text="Action Item"/>
+                    <Input id="item_name" type="Text" placeholder="Action Item Name"/>
+                    
+                    <Input id="item_description" type="Text" placeholder="Action Item Description"/>
+                    <Input id="item_comment" type="Text" placeholder="Action Item Comment"/>
+                    <Input id="item_nps" type="Number" placeholder="NPS Rating"/>
+                    <CheckBox id="item_handled_initiative" text="Handled by current initiative?"/>
+                    <Input id="item_comment_initiative" placeholder="Comment for Initiative"/>
+                </l:VerticalLayout>
+            </content>
+        </Panel>
+
+        <Panel visible="false" id="actionPlan">
+            <l:VerticalLayout width="100%">
+                <Label text="Action Plan"/>
+                <l:HorizontalLayout>
+                    <Label text="Priority"/>
+                    <Select id="plan_prio" items="{ path: '/prio',
+                    sorter: {
+                        path: 'Name'
+                    }
+                }">
+                        <core:Item key="{name}" text="{name}" />
+                    </Select>
+                    </l:HorizontalLayout>
+                    <l:HorizontalLayout>
+                        <Label text="Status"/>
+                        <Select id="plan_status" items="{
+                    path: 'status>/status',
+                    sorter: {
+                        path: 'Name'
+                    }
+                }">
+                        <core:Item key="{status>name}" text="{status>name}" />
+                    </Select>
+                    </l:HorizontalLayout>
+                <Input id="plan_comment" type="Text" placeholder="Action Plan Comment"/>
+                    <Label text="Due Date"/>
+                    <Input id="date" placeholder="Due Date in YYYY-MM-DD format"/>
+            </l:VerticalLayout>
         </Panel>
 
         <buttons>
