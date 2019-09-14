@@ -8,8 +8,8 @@
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<actions>
-					<m:Button text="Delete" type="Transparent" press=".onDelete"/>
-					<m:Button icon="sap-icon://sys-cancel" type="Transparent" press="onDetailCancel"/>
+					<m:Button text="Close" type="Back" press="onDetailCancel"/>
+					<m:Button text="Delete" type="Reject" press=".onDelete"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>

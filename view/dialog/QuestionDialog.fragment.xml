@@ -27,7 +27,7 @@
         </Panel>
         <buttons>
             <Button enabled="true" id="add_question" text="Add" press=".onAddQuestion" />
-            <Button enabled="true" id="delete_question" text="Delete" press="" />
+            <Button enabled="true" id="delete_question" text="Delete" press=".onDeleteQuestion" />
             <Button text="Cancel" press="onCloseDialogGeneric('QuestionDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
         </buttons>
     </Dialog>

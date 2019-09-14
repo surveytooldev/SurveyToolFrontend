@@ -15,7 +15,7 @@
             </content>
         </Panel>
         <buttons>
-            <Button text="Register" press="onRegister" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Register" press="onRegisterPressed" type="Emphasized"/>
             <Button text="Login" press="onLoginPressed" type="Accept" icon="sap-icon://accept"/>
         </buttons>
     </Dialog>

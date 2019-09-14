@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:u="sap.ui.unified">
+    <Dialog id="registerDialog" title="Please Register">
+
+        <Panel>
+            <content>
+                <l:VerticalLayout width="100%">
+                    <Label text="Username" required="true"/>
+                    <Input type="Text" id="reg_username" required="true"/>
+                    <Label text="Password" required="true"/>
+                    <Input type="Password" id="reg_password"/>
+                    <Label text="Confirm Password" required="true"/>
+                    <Input type="Password" id="reg_confirm_password"/>
+                    <Label text="Belonging to Department?"/>
+                    <Switch id="reg_dept" state="false" customTextOn="Yes" customTextOff="No" change="onDeptSelect">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Switch>
+                    <Label text="LoB"/>
+                    <Select id="reg_lobList"  items="{
+			path: 'lobs>/lobs',
+			sorter: {
+				path: 'Name'
+			}
+		}">
+        	<core:Item key="{lobs>name}" text="{lobs>name}" />
+    </Select>
+                    <Text width= "22em" text="Upon Registration, your account will be reviewed by the administrator. Until approval, you will not be able to log in."/>
+                </l:VerticalLayout>
+            </content>
+        </Panel>
+        <buttons>
+            <Button text="Register" press="onRegister" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Cancel" press="onCloseDialogGeneric('registerDialog')" type="Reject" icon="sap-icon://cancel"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

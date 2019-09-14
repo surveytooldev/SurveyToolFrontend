@@ -24,7 +24,6 @@
 					<Button id="questionButton" text="Questions" press=".onOpenDialogGeneric('dialog/QuestionDialog', 'QuestionDialog')"/>
 					<Button id="userButton" text="Manage Users" press=".onOpenDialogGeneric('dialog/UserDialog', 'UserDialog')"/>
 					<ToolbarSpacer/>
-					<SearchField search=".onSearch" width="17.5rem"/>
 					<OverflowToolbarButton id="addButton" icon="sap-icon://add" text="Add" type="Transparent" press=".onOpenFeedbackDialog('ActionItemDialog', 'ActionItemDialog')"/>
 					<OverflowToolbarButton icon="sap-icon://visits" text="Logout" press=".onLogout"/>
 				</OverflowToolbar>

@@ -14,6 +14,7 @@ sap.ui.define([
 	return Controller.extend("sap.surveytool.controller.Master", {
 
 		onInit: function () {
+			
 			var oModel = new JSONModel();
 			oModel.setData(
 				{
@@ -120,6 +121,39 @@ sap.ui.define([
 
 			}
 
+		},
+
+		onRegisterPressed:  function()	{
+			var odata;
+			var t = this;
+			var model = new JSONModel();
+			$.ajax({
+				url: "https://survey-tool-backend.herokuapp.com/survey/".concat("list/lob/"),
+				type: 'GET',
+				dataType: 'json',
+				contentType: 'application/json; charset=utf-8',
+				success: function (data) {
+					odata = { ["lobs"]: data };
+					model.setData(odata);
+				},
+				error: function (e) {
+					t.handleError(e);
+				}
+			});
+			this.getView().setModel(model, "lobs");
+			
+			this.onOpenDialogGeneric("dialog.RegisterDialog", "registerDialog");
+		},
+
+		onDeptSelect: function()	{
+			var _switch = this.getView().byId("reg_dept");
+			if(_switch.getState() == true){
+				console.log("Select");
+				this.getView().byId("reg_lobList").setEnabled(false);
+			}
+			else{
+				this.getView().byId("reg_lobList").setEnabled(true);
+			}
 		},
 
 		instantiateModels: function () {
@@ -238,6 +272,13 @@ sap.ui.define([
 		onCloseDialogGeneric: function (dialogId) {
 			this.byId(dialogId).close();
 		},
+		onCloseDialogGenericRefresh: function (dialogId) {
+			this.loadData('list/lob/', 'lobs');
+			this.loadData('list/status/', 'status');
+			this.loadData('list/service/', 'services');
+			this.loadData('list/topic/', 'topics');
+			this.byId(dialogId).close();
+		},
 		onAddItemPress: function (url) {
 			this.onOpenDialogGeneric("dialog.ItemDialog", "ItemDialog");
 			this.byId("ItemDialog").setTitle(url);
@@ -249,7 +290,9 @@ sap.ui.define([
 			var json = { name: _name, description: _desc };
 			var data = JSON.stringify(json);
 			this.postData(this.byId("ItemDialog").getTitle(), data);
-			this.onCloseDialogGeneric("ItemDialog");
+			this.onCloseDialogGenericRefresh("ItemDialog");
+			
+
 		},
 
 		onShowUsers: function () {
@@ -340,6 +383,10 @@ sap.ui.define([
 					console.log(e);
 				}
 			});
+			this.loadData('list/lob/', 'lobs');
+			this.loadData('list/status/', 'status');
+			this.loadData('list/service/', 'services');
+			this.loadData('list/topic/', 'topics');
 		},
 		onShowQuestions: function () {
 			var catalog = this.getView().byId("question_catalogs").getSelectedKey();
@@ -348,6 +395,10 @@ sap.ui.define([
 		onAddQuestion: function () {
 			this.onOpenDialogGeneric("dialog.AddQuestionDialog", "AddQuestionDialog");
 			this.byId("AddQuestionDialog").setTitle(this.getView().byId("question_catalogs").getSelectedKey());
+		},
+
+		onDeleteQuestion: function(){
+
 		},
 
 		onSaveQuestion: function () {
