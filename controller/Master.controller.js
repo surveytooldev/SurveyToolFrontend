@@ -14,7 +14,6 @@ sap.ui.define([
 	return Controller.extend("sap.surveytool.controller.Master", {
 
 		onInit: function () {
-
 			var oModel = new JSONModel();
 			oModel.setData(
 				{
@@ -71,7 +70,6 @@ sap.ui.define([
 		},
 
 		_onObjectMatched: function () {
-
 		},
 
 		onRowPress: function (oEvent) {
@@ -220,7 +218,6 @@ sap.ui.define([
 			//oModel.loadData("mock.json");
 			//this.getView().byId("list").setModel(oModel);
 			this.getView().byId("list").setModel(this.getView().getModel("feedback"));
-			console.log(this.getView().getModel("feedback"));
 		},
 
 		loadData: function (url, nameOfModel) {
@@ -552,9 +549,9 @@ sap.ui.define([
 				"action_item": action_item,
 				"action_plan": action_plan
 			}
-			console.log(JSON.stringify(result));
 			this.postData("feedback/", JSON.stringify(result));
 			this.onCloseDialogGeneric("ActionItemDialog");
+            location.reload();
 		},
 
 		onSelectActionItem: function()	{
