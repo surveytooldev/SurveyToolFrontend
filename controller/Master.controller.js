@@ -209,6 +209,7 @@ sap.ui.define([
 			}
 		},
 
+
 		instantiateModels: function () {
 			this.loadData("feedback/", "feedback");
 			if (sessionStorage.getItem("userGroup") != "lob") {
@@ -291,6 +292,18 @@ sap.ui.define([
 						console.log(e);
 					}
 				});
+			}
+		},
+
+		onSaveCatalog: function()	{
+			var json = {"name": this.getView().byId("catalogAddName").getValue()};
+			var r = JSON.stringify(json);
+			if(this.getView().byId("catalogAddName").getValue().length != 0){
+			this.postData("questioncatalogs/", r);
+			this.onCloseDialogGeneric('AddCatalogDialog');
+			}
+			else{
+				MessageToast.show("Please enter a name");
 			}
 		},
 

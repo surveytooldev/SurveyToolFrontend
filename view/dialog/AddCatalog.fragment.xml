@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:u="sap.ui.unified">
+    <Dialog id="AddCatalogDialog" title="">
+
+        <Panel>
+            <content>
+                <l:VerticalLayout width="100%">
+                    <Label text="Catalog Name"/>
+                    <Input type="Text" placeholder="" id="catalogAddName"/>
+                </l:VerticalLayout>
+            </content>
+        </Panel>
+        <buttons>
+            <Button text="Save" press="onSaveCatalog" type="Accept" icon="sap-icon://accept"/>
+            <Button text="Cancel" press="onCloseDialogGeneric('AddCatalogDialog')" type="Reject" icon="sap-icon://sys-cancel"/>
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

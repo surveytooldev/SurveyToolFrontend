@@ -6,7 +6,7 @@
 
         <Panel>
             <content>
-            <Button text="Add Catalog"/>
+            <Button text="Add Catalog" press=".onOpenDialogGeneric('./dialog/AddCatalog', 'AddCatalogDialog')"/>
                 <Select id="question_catalogs"
             forceSelection ="true" items="{
 						path: 'question_catalogs>/question_catalogs',
