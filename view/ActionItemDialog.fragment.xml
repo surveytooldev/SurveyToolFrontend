@@ -55,9 +55,9 @@
             <content>
                 <l:VerticalLayout width="100%">
                     <Label text="Action Item"/>
-                    <Input id="item_name" type="Text" placeholder="Action Item Name"/>
+                    <Input id="item_name" required="true" type="Text" placeholder="Action Item Name"/>
                     
-                    <Input id="item_description" type="Text" placeholder="Action Item Description"/>
+                    <Input id="item_description" required="true" type="Text" placeholder="Action Item Description"/>
                     <Input id="item_comment" type="Text" placeholder="Action Item Comment"/>
                     <Input id="item_nps" type="Number" placeholder="NPS Rating"/>
                     <CheckBox id="item_handled_initiative" text="Handled by current initiative?"/>
@@ -90,9 +90,9 @@
                         <core:Item key="{status>name}" text="{status>name}" />
                     </Select>
                     </l:HorizontalLayout>
-                <Input id="plan_comment" type="Text" placeholder="Action Plan Comment"/>
+                <Input id="plan_comment" required="true" type="Text" placeholder="Action Plan Comment"/>
                     <Label text="Due Date"/>
-                    <Input id="date" placeholder="Due Date in YYYY-MM-DD format"/>
+                    <Input required="true" id="date" placeholder="Due Date in YYYY-MM-DD format"/>
             </l:VerticalLayout>
         </Panel>
 

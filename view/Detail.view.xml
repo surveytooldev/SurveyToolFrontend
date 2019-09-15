@@ -117,8 +117,20 @@
 						<blocks>
 						<form:SimpleForm>
 							<form:content>
-								<m:Label text="Dummy"/>
-								<m:Text text="{item>/item/lob/name}"/>
+								<m:Label text="Priority"/>
+								<m:Text text="{item>/item/action_plan/priority}"/>
+							</form:content>
+							<form:content>
+								<m:Label text="Due Date"/>
+								<m:Text text="{item>/item/action_plan/due_date}"/>
+							</form:content>
+							<form:content>
+								<m:Label text="Comment"/>
+								<m:Text text="{item>/item/action_plan/comment}"/>
+							</form:content>
+							<form:content>
+								<m:Label text="Status"/>
+								<m:Text text="{item>/item/action_plan/status/name}"/>
 							</form:content>
 							</form:SimpleForm>
 						</blocks>

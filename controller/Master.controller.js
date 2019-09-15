@@ -22,10 +22,10 @@ sap.ui.define([
 						{ "name": "Inactive" },
 						{ "name": "All" }
 					],
-					"prio":[
-						{"name": "1"},
-						{"name": "2"},
-						{"name": "3"}
+					"prio": [
+						{ "name": "1" },
+						{ "name": "2" },
+						{ "name": "3" }
 					]
 				});
 			this.getView().setModel(oModel);
@@ -151,7 +151,6 @@ sap.ui.define([
 		onDeptSelect: function () {
 			var _switch = this.getView().byId("reg_dept");
 			if (_switch.getState() == true) {
-				console.log("Select");
 				this.getView().byId("reg_lobList").setEnabled(false);
 			}
 			else {
@@ -166,9 +165,9 @@ sap.ui.define([
 			var pw2 = this.getView().byId("reg_confirm_password").getValue();
 			var belonging_to_dept = this.getView().byId("reg_dept").getState();
 			var email = this.getView().byId("reg_email").getValue();
-			if(!belonging_to_dept){
-			var lob = this.getView().byId("reg_lobList").getSelectedKey();
-			}else{
+			if (!belonging_to_dept) {
+				var lob = this.getView().byId("reg_lobList").getSelectedKey();
+			} else {
 				var lob = ""
 			}
 			var isdept;
@@ -187,9 +186,9 @@ sap.ui.define([
 				email: email,
 				lob: lob
 			});
-			if(pw1 !== pw2 | username === "" | pw1 === "" | pw2 === "" | email === "")	{
+			if (pw1 !== pw2 | username === "" | pw1 === "" | pw2 === "" | email === "") {
 				MessageToast.show("Please fill out all fields correctly")
-			}else{
+			} else {
 				$.ajax({
 					url: "https://survey-tool-backend.herokuapp.com/survey/register/",
 					type: 'POST',
@@ -257,8 +256,7 @@ sap.ui.define([
 					data
 				,
 				success: function (data) {
-					console.log(data);
-					MessageToast.show(JSON.stringify(data));
+					MessageToast.show("Operation carried out successfully");
 				},
 				error: function (e) {
 					t.handleError(e);
@@ -294,7 +292,6 @@ sap.ui.define([
 					}
 				});
 			}
-			console.log(e);
 		},
 
 		//view-related functions must be excluded
@@ -457,7 +454,7 @@ sap.ui.define([
 		onSaveQuestion: function () {
 			if (this.getView().byId("questionContent").getValue() != "") {
 				var json = { content: this.getView().byId("questionContent").getValue(), catalog: this.byId("AddQuestionDialog").getTitle() };
-				console.log(json);
+
 				this.postData("questions/", JSON.stringify(json));
 				this.onCloseDialogGeneric("AddQuestionDialog");
 			}
@@ -480,7 +477,6 @@ sap.ui.define([
 
 		onSaveQuestionAnswer: function () {
 			var model = this.getView().getModel("question_answers");
-			console.log(this.getView().getModel("questions"));
 			var data = model.getProperty("/questions");
 			if (this.getView().byId("questions_response").getSelectedKey() == null ||
 				this.getView().byId("responseContent").getValue() == null ||
@@ -494,84 +490,75 @@ sap.ui.define([
 				};
 				data.push(newData);
 				model.setProperty("/questions", data);
-				console.log(this.getView().getModel("question_answers"));
 				this.onCloseDialogGeneric("AddQuestionAnswerDialog");
 			}
 		},
 
 		onSaveFeedbackItem: function () {
-			var name = this.getView().byId("feedbackNameAdd").getValue();
-			var description = this.getView().byId("feedbackDescription").getValue();
-			var lob = this.getView().byId("lob_feedback").getSelectedKey();
-			var topic = this.getView().byId("topic_feedback").getSelectedKey();
-			var service = this.getView().byId("service_feedback").getSelectedKey();
-			var questions = this.getView().getModel("question_answers").getProperty("/questions");
-
-			if(this.getView().byId("actionItemNeeded").getSelected()){
-				switch(this.getView().byId("item_handled_initiative").getSelected()){
-					case true:
-						var handled = "True";
-						break;
-					case false:
-						var handled = "False";
-						break;
+			try {
+				if (this.getView().byId("actionItemNeeded").getSelected()) {
+					switch (this.getView().byId("item_handled_initiative").getSelected()) {
+						case true:
+							var handled = "True";
+							break;
+						case false:
+							var handled = "False";
+							break;
+					}
 				}
-			var action_item = {
-				"name": this.getView().byId("item_name").getValue(),
-				"description": this.getView().byId("item_description").getValue(),
-				"comment_initiative": this.getView().byId("item_comment_initiative").getValue(),
-				"nps_survey_rating": this.getView().byId("item_nps").getValue(),
-				"comment": this.getView().byId("item_comment").getValue(),
-				"handled_by_current_initiative": handled
-			};
-		}
-		else if (!this.getView().byId("actionItemNeeded").getSelected()){
-			var action_item = {};
-		}
-		if(this.getView().byId("actionItemNeeded").getSelected() && this.getView().byId("actionPlanNeeded").getSelected()){
-			var action_plan = {
-				"priority" : this.getView().byId("plan_prio").getSelectedKey(),
-				"status" : this.getView().byId("plan_status").getSelectedKey(),
-				"comment": this.getView().byId("plan_comment").getValue(),
-				"due_date": this.getView().byId("date").getValue()
+				var result = {
+					"name": (this.getView().byId("feedbackNameAdd").getValue().length == 0) ? "Not defined" : this.getView().byId("feedbackNameAdd").getValue(),
+					"description": (this.getView().byId("feedbackDescription").getValue().length== 0) ? "Not defined" : this.getView().byId("feedbackDescription").getValue(),
+					"lob": this.getView().byId("lob_feedback").getSelectedKey(),
+					"topic": this.getView().byId("topic_feedback").getSelectedKey(),
+					"service": this.getView().byId("service_feedback").getSelectedKey(),
+					"questions": this.getView().getModel("question_answers").getProperty("/questions"),
+					"action_item": {
+						"name": (this.getView().byId("item_name").getValue().length == 0) ? "Not defined" : this.getView().byId("item_name").getValue(),
+						"description": (this.getView().byId("item_description").getValue().length == 0) ? "Not defined" : this.getView().byId("item_description").getValue(),
+						"comment_initiative": (this.getView().byId("item_comment_initiative").getValue().length == 0) ? "Not defined" : this.getView().byId("item_comment_initiative").getValue(),
+						"nps_survey_rating": (this.getView().byId("item_nps").getValue().length == 0) ? "0" : this.getView().byId("item_nps").getValue(),
+						"comment": (this.getView().byId("item_comment").getValue().length == 0) ? "Not defined" : this.getView().byId("item_comment").getValue(),
+						"handled_by_current_initiative": handled
+					},
+					"action_plan": {
+						"priority": this.getView().byId("plan_prio").getSelectedKey(),
+						"status": this.getView().byId("plan_status").getSelectedKey(),
+						"comment": (this.getView().byId("plan_comment").getValue().length == 0) ? "Not defined" : this.getView().byId("plan_comment").getValue(),
+						"due_date": (this.getView().byId("date").getValue().length == 0) ? "2040-12-31" : this.getView().byId("date").getValue()
+					}
+				}
+				if (this.getView().getModel("question_answers").getProperty("/questions") == undefined) {
+					MessageToast.show("Please enter at least one question");
+				} else {
+					this.postData("feedback/", JSON.stringify(result));
+					this.onCloseDialogGeneric("ActionItemDialog");
+					location.reload();
+				}
 			}
-
-		}else{
-			var action_plan = {};
-		}
-			var result = {
-				"name": name,
-				"description": description,
-				"lob": lob,
-				"topic": topic,
-				"service": service,
-				"questions": questions,
-				"action_item": action_item,
-				"action_plan": action_plan
+			catch (e) {
+				MessageToast.show("Please enter at least one question");
 			}
-			this.postData("feedback/", JSON.stringify(result));
-			this.onCloseDialogGeneric("ActionItemDialog");
-            location.reload();
 		},
 
-		onSelectActionItem: function()	{
-			if(!this.getView().byId("actionItem").getVisible())	{
+		onSelectActionItem: function () {
+			if (!this.getView().byId("actionItem").getVisible()) {
 				this.getView().byId("actionItem").setVisible(true);
 				this.getView().byId("actionPlanNeeded").setEnabled(true);
-			}else{
-			this.getView().byId("actionItem").setVisible(false);
-			this.getView().byId("actionPlanNeeded").setEnabled(false);
-			this.getView().byId("actionPlanNeeded").setSelected(false);
-			
-			this.getView().byId("actionPlan").setVisible(false);
+			} else {
+				this.getView().byId("actionItem").setVisible(false);
+				this.getView().byId("actionPlanNeeded").setEnabled(false);
+				this.getView().byId("actionPlanNeeded").setSelected(false);
+
+				this.getView().byId("actionPlan").setVisible(false);
 			}
 		},
 
-		onSelectActionPlan: function(){
-			if(!this.getView().byId("actionPlan").getVisible())	{
+		onSelectActionPlan: function () {
+			if (!this.getView().byId("actionPlan").getVisible()) {
 				this.getView().byId("actionPlan").setVisible(true);
-			}else{
-			this.getView().byId("actionPlan").setVisible(false);
+			} else {
+				this.getView().byId("actionPlan").setVisible(false);
 			}
 		},
 
