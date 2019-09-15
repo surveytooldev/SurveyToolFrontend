@@ -508,7 +508,7 @@ sap.ui.define([
 				}
 				var result = {
 					"name": (this.getView().byId("feedbackNameAdd").getValue().length == 0) ? "Not defined" : this.getView().byId("feedbackNameAdd").getValue(),
-					"description": (this.getView().byId("feedbackDescription").getValue().length== 0) ? "Not defined" : this.getView().byId("feedbackDescription").getValue(),
+					"description": (this.getView().byId("feedbackDescription").getValue().length == 0) ? "Not defined" : this.getView().byId("feedbackDescription").getValue(),
 					"lob": this.getView().byId("lob_feedback").getSelectedKey(),
 					"topic": this.getView().byId("topic_feedback").getSelectedKey(),
 					"service": this.getView().byId("service_feedback").getSelectedKey(),
